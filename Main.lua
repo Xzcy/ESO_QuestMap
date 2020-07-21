@@ -15,6 +15,7 @@ local SDLV = DebugLogViewer
 
 -- Constants
 local PIN_PRIORITY_OFFSET = 1
+local DAILY_REPEATABLE_PIN_OFFSET = 2
 
 -- quest flags
 local flag_completed_quest     = 1
@@ -341,7 +342,7 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, r
     --[[
     Completed takes precedence over other states
     ]]--
-    if fcpq then
+    if fcpq and (not freq or not fdaq) then
         return flag_completed_quest
     end
 
@@ -545,9 +546,9 @@ function QuestMap:RefreshPinLayout()
 
     QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_STARTED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 
-    QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_REPEATABLE, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+    QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_REPEATABLE, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 
-    QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_DAILY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+    QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_DAILY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 
     QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_SKILL, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 
@@ -692,13 +693,13 @@ local function OnLoad(eventCode, addOnName)
             tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_STARTED]
         },
         [QuestMap.PIN_TYPE_QUEST_REPEATABLE] = {
-            level = QuestMap.settings.pinLevel,
+            level = QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET,
             texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
             size = QuestMap.settings.pinSize,
             tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_REPEATABLE]
         },
         [QuestMap.PIN_TYPE_QUEST_DAILY] = {
-            level = QuestMap.settings.pinLevel,
+            level = QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET,
             texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
             size = QuestMap.settings.pinSize,
             tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_DAILY]
