@@ -16,7 +16,7 @@ local strings = {
     QUESTMAP_DAILY                = "Diarias",
     QUESTMAP_CADWELL              = "De Cadwell",
     QUESTMAP_SKILL                = "Da punto de habilidad",
-    QUESTMAP_HOLIDAY              = "Holiday",
+	QUESTMAP_HOLIDAY              = "Festividades",
 
     QUESTMAP_HIDE                 = "Ocultar misión",
     QUESTMAP_UNHIDE               = "Mostrar misión",
@@ -38,10 +38,10 @@ local strings = {
     QUESTMAP_MENU_ICON_SET        = "Ícono",
 
     QUESTMAP_MENU_PIN_SIZE        = "Tamaño del marcador",
-    QUESTMAP_MENU_PIN_SIZE_TT     = "Define el tamaño del marcador en el mapa. (por defecto: "..QuestMap.settings_default.pinSize..")",
+    QUESTMAP_MENU_PIN_SIZE_TT     = "Define el tamaño del marcador en el mapa. (Por defecto: "..QuestMap.settings_default.pinSize..")",
 
     QUESTMAP_MENU_PIN_LVL         = "Nivel del marcador",
-    QUESTMAP_MENU_PIN_LVL_TT      = "Define a qué nivel del mapa de dibujarán los marcadores. (por defecto: "..QuestMap.settings_default.pinLevel..")",
+    QUESTMAP_MENU_PIN_LVL_TT      = "Define el nivel de los marcadores en el mapa para que aparezcan sobre o por debajo de otros marcadores en la misma ubicación. (Por defecto: "..QuestMap.settings_default.pinLevel..")",
 
     QUESTMAP_MENU_DISP_MSG        = "Alternar notificaciones en el chat",
     QUESTMAP_MENU_DISP_MSG_TT     = "Activa o desactiva las notificaciones en la ventana de chat al mostrar u ocultar los marcadores de misión.",
@@ -102,18 +102,18 @@ local strings = {
     QUESTMAP_REPEATABLE_TOOLTIP_COLOR_DESC  = "Cambia el color de los marcadores de misiones repetibles.",
 
     -- Daily quest pin text
-    QUESTMAP_DAILY_PIN_COLOR  = "Color de marcadores de misiones diarias.",
+    QUESTMAP_DAILY_PIN_COLOR  = "Color de marcadores de misiones diarias",
     QUESTMAP_DAILY_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones diarias.",
 
     QUESTMAP_DAILY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones diarias",
     QUESTMAP_DAILY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones diarias.",
 
     -- Holiday quest pin text
-    QUESTMAP_HOLIDAY_PIN_COLOR  = "Holiday Quest Pin Color",
-    QUESTMAP_HOLIDAY_PIN_COLOR_DESC  = "Change Holiday Quest Pin Color",
+    QUESTMAP_HOLIDAY_PIN_COLOR  = "Color de marcadores de misiones de evento",
+    QUESTMAP_HOLIDAY_PIN_COLOR_DESC  = "Cambia el color de los marcadores de eventos festivos.",
 
-    QUESTMAP_HOLIDAY_TOOLTIP_COLOR  = "Holiday Quest Tooltip Color",
-    QUESTMAP_HOLIDAY_TOOLTIP_COLOR_DESC  = "Change Holiday Quest Tooltip Color",
+    QUESTMAP_HOLIDAY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de evento",
+    QUESTMAP_HOLIDAY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de eventos festivos.",
 
     -- Cadwell quest pin text
     QUESTMAP_CADWELL_PIN_COLOR  = "Color de marcadores de misiones de Cadwell.",
