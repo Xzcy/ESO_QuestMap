@@ -8,15 +8,18 @@ https://github.com/CaptainBlagbird
 
 local strings = {
     -- General
-    QUESTMAP_UNCOMPLETED          = "No completadas",
     QUESTMAP_COMPLETED            = "Completadas",
+    QUESTMAP_UNCOMPLETED          = "No completadas",
     QUESTMAP_HIDDEN               = "Ocultadas manualmente",
     QUESTMAP_STARTED              = "Comenzadas",
-    QUESTMAP_REPEATABLE           = "Repetibles",
+    QUESTMAP_GUILD                = "Guild",
     QUESTMAP_DAILY                = "Diarias",
-    QUESTMAP_CADWELL              = "De Cadwell",
     QUESTMAP_SKILL                = "Da punto de habilidad",
+    QUESTMAP_CADWELL              = "De Cadwell",
+    QUESTMAP_DUNGEON              = "Dungeon",
 	QUESTMAP_HOLIDAY              = "Festividades",
+    QUESTMAP_WEEKLY               = "Weekly",
+    QUESTMAP_ZONESTORY            = "Zone Story",
 
     QUESTMAP_HIDE                 = "Ocultar misión",
     QUESTMAP_UNHIDE               = "Mostrar misión",
@@ -94,12 +97,12 @@ local strings = {
     QUESTMAP_STARTED_TOOLTIP_COLOR  = "Color del texto de inf. de misiones comenzadas",
     QUESTMAP_STARTED_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones comenzadas.",
 
-    -- Repeatable quest pin text
-    QUESTMAP_REPEATABLE_PIN_COLOR  = "Color de marcadores de misiones repetibles",
-    QUESTMAP_REPEATABLE_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones repetibles.",
+    -- Guild quest pin text
+    QUESTMAP_GUILD_PIN_COLOR  = "Guild Quest Pin Color",
+    QUESTMAP_GUILD_PIN_COLOR_DESC  = "Change Guild Quest Pin Color",
 
-    QUESTMAP_REPEATABLE_TOOLTIP_COLOR  = "Color del texto de inf. de misiones repetibles",
-    QUESTMAP_REPEATABLE_TOOLTIP_COLOR_DESC  = "Cambia el color de los marcadores de misiones repetibles.",
+    QUESTMAP_GUILD_TOOLTIP_COLOR  = "Guild Quest Tooltip Color",
+    QUESTMAP_GUILD_TOOLTIP_COLOR_DESC  = "Change Guild Quest Tooltip Color",
 
     -- Daily quest pin text
     QUESTMAP_DAILY_PIN_COLOR  = "Color de marcadores de misiones diarias",
@@ -107,6 +110,13 @@ local strings = {
 
     QUESTMAP_DAILY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones diarias",
     QUESTMAP_DAILY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones diarias.",
+
+    -- Weekly Duration quest pin text
+    QUESTMAP_WEEKLY_PIN_COLOR  = "Weekly Quest Pin Color",
+    QUESTMAP_WEEKLY_PIN_COLOR_DESC  = "Change Weekly Quest Pin Color",
+
+    QUESTMAP_WEEKLY_TOOLTIP_COLOR  = "Weekly Quest Tooltip Color",
+    QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC  = "Change Weekly Quest Tooltip Color",
 
     -- Holiday quest pin text
     QUESTMAP_HOLIDAY_PIN_COLOR  = "Color de marcadores de misiones de evento",
@@ -135,6 +145,13 @@ local strings = {
 
     QUESTMAP_DUNGEON_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de mazmorra",
     QUESTMAP_DUNGEON_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de mazmorras.",
+
+    -- Zonestory quest pin text
+    QUESTMAP_ZONESTORY_PIN_COLOR  = "Zonestory Quest Pin Color",
+    QUESTMAP_ZONESTORY_PIN_COLOR_DESC  = "Change Zonestory Quest Pin Color",
+
+    QUESTMAP_ZONESTORY_TOOLTIP_COLOR  = "Zonestory Quest Tooltip Color",
+    QUESTMAP_ZONESTORY_TOOLTIP_COLOR_DESC  = "Change Zonestory Quest Tooltip Color",
 
 }
 
