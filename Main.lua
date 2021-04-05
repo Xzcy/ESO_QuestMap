@@ -9,7 +9,7 @@ https://github.com/CaptainBlagbird
 -- Libraries
 local LMP = LibMapPins
 local LMW = LibMsgWin
-local GPS = LibGPS2
+local GPS = LibGPS3
 local LQD = LibQuestData
 local SDLV = DebugLogViewer
 
@@ -33,7 +33,7 @@ local flag_zone_story          = 12
 
 -- Local variables
 local zoneQuests = {}
-local last_mapid
+local last_mapid = 0
 
 -------------------------------------------------
 ----- Helpers                               -----
@@ -290,8 +290,8 @@ local function FormatQuestName(questName, questNameLayoutType)
     end
 end
 
-function check_map_state()
-    QuestMap.dm("Debug", "Checking map state")
+local function check_map_state()
+    QuestMap.dm("Debug", "Refreshing both Pins and Quest List")
     if last_mapid and (GetCurrentMapId() ~= last_mapid) then
         QuestMap.dm("Debug", "changed")
         QuestMap.dm("Debug", GetCurrentMapId())
@@ -299,9 +299,8 @@ function check_map_state()
             QuestMap.dm("Debug", "stopped")
             return
         end
-        local zone = LMP:GetZoneAndSubzone(true, false, true)
-        zoneQuests = LQD:get_quest_list(zone)
         QuestMap.dm("Debug", "RefreshPins")
+        zoneQuests = LQD.zone_quests
         QuestMap:RefreshPins()
     else
         QuestMap.dm("Debug", "Did not change or not assigned")
@@ -309,7 +308,7 @@ function check_map_state()
     last_mapid = GetCurrentMapId()
 end
 
-CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", function(navigateIn)
+CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", function()
     check_map_state()
 end)
 
@@ -606,7 +605,7 @@ local function MapCallbackQuestPins(pinType)
 
         end
     end
-    QuestMap.dm("Debug", "End --------------------")
+    --QuestMap.dm("Debug", "End --------------------")
 end
 
 function QuestMap:refresh_specific_layout(name_layout_type, pin_size, pin_level, pin_texture)
@@ -741,9 +740,8 @@ local function OnLoad(eventCode, addOnName)
         end
     end
 
-    local zone = LMP:GetZoneAndSubzone(true, false, true)
-    QuestMap.dm("Debug", zone)
-    zoneQuests = LQD:get_quest_list(zone)
+    QuestMap.dm("Debug", "Checking Map State")
+    check_map_state()
 
     -- Get tootip of each individual pin
     local pinTooltipCreator = {
