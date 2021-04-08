@@ -266,6 +266,8 @@ function QuestMap:RefreshPins()
     LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_DUNGEON)
     LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_HOLIDAY)
     LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_ZONESTORY)
+    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_PROLOGUE)
+    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_PLEDGES)
 end
 
 -- Callback function which is called every time another map is viewed, creates quest pins
@@ -378,13 +380,16 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if fwkq then
         return flag_weekly_quest
     end
-    if (fdaq or fpgq or fbgq) and (not fhoq or not fwkq)then
+    if fpgq then
+        return flag_type_pledge
+    end
+    if (fdaq or fbgq) and (not fhoq or not fwkq or not fpgq)then
         return flag_daily_quest
     end
     --[[
     Completed takes precedence over other states
     ]]--
-    if fcpq and (not fdaq or not fwkq or not fhoq or not fpgq or not fbgq) then
+    if fcpq and (not fdaq or not fwkq or not fhoq  or not fbgq) then
         return flag_completed_quest
     end
 
@@ -430,11 +435,13 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if fmsq then
         return flag_main_story
     end
-
+    if fprq then
+        return flag_type_prologue
+    end
     --[[
     Hopefully this is last
     ]]--
-    if (fucq or fprq) then
+    if (fucq) then
         return flag_uncompleted_quest
     end
 
@@ -606,6 +613,26 @@ local function MapCallbackQuestPins(pinType)
                 end
             end
 
+            if pinType == QuestMap.PIN_TYPE_QUEST_PROLOGUE then
+                if quest_flag == flag_type_prologue then
+                    if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_PROLOGUE) then
+                        --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_PROLOGUE)
+                        pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_PROLOGUE)
+                        LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_PROLOGUE, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
+                    end
+                end
+            end
+
+            if pinType == QuestMap.PIN_TYPE_QUEST_PLEDGES then
+                if quest_flag == flag_type_pledge then
+                    if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_PLEDGES) then
+                        --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_PLEDGES)
+                        pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_PLEDGES)
+                        LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_PLEDGES, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
+                    end
+                end
+            end
+
             if pinType == QuestMap.PIN_TYPE_QUEST_UNCOMPLETED then
                 if quest_flag == flag_uncompleted_quest then
                     if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED) then
@@ -661,6 +688,10 @@ function QuestMap:RefreshPinLayout()
     QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_HOLIDAY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 
     QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_ZONESTORY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+
+    QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_PROLOGUE, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+
+    QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_PLEDGES, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 end
 
 -- Function to refresh pin filters (e.g. from settings menu)
@@ -674,8 +705,11 @@ function QuestMap:RefreshPinFilters()
     LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_WEEKLY,   QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_WEEKLY])
     LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_SKILL,        QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_SKILL])
     LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_CADWELL,      QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_CADWELL])
+    LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_DUNGEON,      QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_DUNGEON])
     LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_HOLIDAY,      QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_HOLIDAY])
     LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_ZONESTORY,      QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_ZONESTORY])
+    LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_PROLOGUE,      QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_PROLOGUE])
+    LMP:SetEnabled(QuestMap.PIN_TYPE_QUEST_PLEDGES,      QuestMap.settings.pinFilters[QuestMap.PIN_TYPE_QUEST_PLEDGES])
 end
 
 -- Function to (un)hide all quests on the currently displayed map
@@ -845,6 +879,18 @@ local function OnLoad(eventCode, addOnName)
             size = QuestMap.settings.pinSize,
             tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_ZONESTORY]
         },
+        [QuestMap.PIN_TYPE_QUEST_PROLOGUE] = {
+            level = QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET,
+            texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+            size = QuestMap.settings.pinSize,
+            tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_PROLOGUE]
+        },
+        [QuestMap.PIN_TYPE_QUEST_PLEDGES] = {
+            level = QuestMap.settings.pinLevel+DAILY_REPEATABLE_PIN_OFFSET,
+            texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+            size = QuestMap.settings.pinSize,
+            tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_PLEDGES]
+        },
     }
 
     -- Add new pin types for quests
@@ -858,6 +904,8 @@ local function OnLoad(eventCode, addOnName)
     LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_HOLIDAY, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_HOLIDAY) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_HOLIDAY], pinTooltipCreator)
     LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_WEEKLY, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_WEEKLY) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_WEEKLY], pinTooltipCreator)
     LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_ZONESTORY, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_ZONESTORY) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_ZONESTORY], pinTooltipCreator)
+    LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_PROLOGUE, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_PROLOGUE) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_PROLOGUE], pinTooltipCreator)
+    LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_PLEDGES, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_PLEDGES) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_PLEDGES], pinTooltipCreator)
 
     LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_CADWELL, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_CADWELL) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_CADWELL], pinTooltipCreator)
     LMP:AddPinType(QuestMap.PIN_TYPE_QUEST_SKILL, function() MapCallbackQuestPins(QuestMap.PIN_TYPE_QUEST_SKILL) end, nil, pinLayout[QuestMap.PIN_TYPE_QUEST_SKILL], pinTooltipCreator)
@@ -875,6 +923,8 @@ local function OnLoad(eventCode, addOnName)
     LMP:AddPinFilter(QuestMap.PIN_TYPE_QUEST_HOLIDAY, GetString(QUESTMAP_QUESTS).." ("..GetString(QUESTMAP_HOLIDAY)..")", true, QuestMap.settings.pinFilters, QuestMap.PIN_TYPE_QUEST_HOLIDAY, QuestMap.PIN_TYPE_QUEST_HOLIDAY_PVP)
     LMP:AddPinFilter(QuestMap.PIN_TYPE_QUEST_WEEKLY, GetString(QUESTMAP_QUESTS).." ("..GetString(QUESTMAP_WEEKLY)..")", true, QuestMap.settings.pinFilters, QuestMap.PIN_TYPE_QUEST_WEEKLY, QuestMap.PIN_TYPE_QUEST_WEEKLY_PVP)
     LMP:AddPinFilter(QuestMap.PIN_TYPE_QUEST_ZONESTORY, GetString(QUESTMAP_QUESTS).." ("..GetString(QUESTMAP_ZONESTORY)..")", true, QuestMap.settings.pinFilters, QuestMap.PIN_TYPE_QUEST_ZONESTORY, QuestMap.PIN_TYPE_QUEST_WEEKLY_PVP)
+    LMP:AddPinFilter(QuestMap.PIN_TYPE_QUEST_PROLOGUE, GetString(QUESTMAP_QUESTS).." ("..GetString(QUESTMAP_PROLOGUE)..")", true, QuestMap.settings.pinFilters, QuestMap.PIN_TYPE_QUEST_PROLOGUE, QuestMap.PIN_TYPE_QUEST_WEEKLY_PVP)
+    LMP:AddPinFilter(QuestMap.PIN_TYPE_QUEST_PLEDGES, GetString(QUESTMAP_QUESTS).." ("..GetString(QUESTMAP_PLEDGES)..")", true, QuestMap.settings.pinFilters, QuestMap.PIN_TYPE_QUEST_PLEDGES, QuestMap.PIN_TYPE_QUEST_WEEKLY_PVP)
 
     LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_CADWELL, "pvp", true)
     LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_CADWELL, "imperialPvP", true)
@@ -891,6 +941,12 @@ local function OnLoad(eventCode, addOnName)
     LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_GUILD, "pvp", true)
     LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_GUILD, "imperialPvP", true)
     LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_GUILD, "battleground", true)
+    LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_PROLOGUE, "pvp", true)
+    LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_PROLOGUE, "imperialPvP", true)
+    LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_PROLOGUE, "battleground", true)
+    LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_PLEDGES, "pvp", true)
+    LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_PLEDGES, "imperialPvP", true)
+    LMP:SetPinFilterHidden(QuestMap.PIN_TYPE_QUEST_PLEDGES, "battleground", true)
 
     QuestMap:RefreshPinFilters()
     QuestMap:RefreshPinLayout()
