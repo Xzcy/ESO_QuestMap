@@ -29,7 +29,10 @@ local flag_cadwell_quest       = 8
 local flag_dungeon_quest       = 9
 local flag_holiday_quest       = 10
 local flag_weekly_quest        = 11
-local flag_zone_story          = 12
+local flag_main_story          = 12
+local flag_type_battleground   = 13
+local flag_type_prologue       = 14
+local flag_type_pledge         = 15
 
 -- Local variables
 local zoneQuests = {}
@@ -341,7 +344,10 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     local fduq = false -- flag_dungeon_quest
     local fhoq = false -- flag_holiday_quest
     local fwkq = false -- flag_weekly_quest
-    local fzsq = false -- flag_zone_story
+    local fmsq = false -- flag_main_story
+    local fbgq = false -- flag_type_battleground
+    local fprq = false -- flag_type_prologue
+    local fpgq = false -- flag_type_pledge
 
     if completed_quest then fcpq = true end
     if not completed_quest then fucq = true end
@@ -354,7 +360,10 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if quest_type == LQD.quest_data_type.quest_type_dungeon then fduq = true end
     if quest_type == LQD.quest_data_type.quest_type_holiday_event then fhoq = true end
     if repeatable_type == LQD.quest_data_repeat.quest_repeat_repeatable then fwkq = true end
-    if quest_type == LQD.quest_data_type.quest_type_main_story then fzsq = true end
+    if quest_type == LQD.quest_data_type.quest_type_main_story then fmsq = true end
+    if quest_type == LQD.quest_data_type.quest_type_battleground then fbgq = true end
+    if quest_type == LQD.quest_data_type.quest_type_prologue then fprq = true end
+    if quest_type == LQD.quest_data_type.quest_type_undaunted_pledge then fpgq = true end
 
     --[[
     holliday, daily, and WEEKLY quests are unique
@@ -369,13 +378,13 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if fwkq then
         return flag_weekly_quest
     end
-    if fdaq and (not fhoq or not fwkq)then
+    if (fdaq or fpgq or fbgq) and (not fhoq or not fwkq)then
         return flag_daily_quest
     end
     --[[
     Completed takes precedence over other states
     ]]--
-    if fcpq and (not fdaq or not fwkq or not fhoq) then
+    if fcpq and (not fdaq or not fwkq or not fhoq or not fpgq or not fbgq) then
         return flag_completed_quest
     end
 
@@ -418,14 +427,14 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if fduq then
         return flag_dungeon_quest
     end
-    if fzsq then
-        return flag_zone_story
+    if fmsq then
+        return flag_main_story
     end
 
     --[[
     Hopefully this is last
     ]]--
-    if fucq then
+    if (fucq or fprq) then
         return flag_uncompleted_quest
     end
 
@@ -558,7 +567,7 @@ local function MapCallbackQuestPins(pinType)
             end
 
             if pinType == QuestMap.PIN_TYPE_QUEST_ZONESTORY then
-                if quest_flag == flag_zone_story then
+                if quest_flag == flag_main_story then
                     if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_ZONESTORY) then
                         --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_ZONESTORY)
                         pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_ZONESTORY)
