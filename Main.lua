@@ -33,7 +33,6 @@ local flag_zone_story          = 12
 
 -- Local variables
 local zoneQuests = {}
-local last_mapid = 0
 
 -------------------------------------------------
 ----- Helpers                               -----
@@ -83,7 +82,7 @@ local function p(s)
         s = s:gsub("|cFFFFFF", "")
         temp_state = QuestMap.show_log
         QuestMap.show_log = true
-        QuestMap.dm("Debug", s)
+        --QuestMap.dm("Debug", s)
         QuestMap.show_log = temp_state
     else
         -- Add addon name to message
@@ -95,7 +94,7 @@ local function p(s)
         -- Display message
         temp_state = QuestMap.show_log
         QuestMap.show_log = true
-        QuestMap.dm("Debug", s)
+        --QuestMap.dm("Debug", s)
         QuestMap.show_log = temp_state
     end
 end
@@ -128,9 +127,8 @@ local function DisplayListUI(arg)
     -- Get currently displayed zone and subzone from texture
     local zone = LMP:GetZoneAndSubzone(true, false, true)
     -- Update quest list for current zone if the zone changed
-    if last_mapid and (GetCurrentMapId() ~= last_mapid) then
-        zoneQuests = LQD:get_quest_list(zone)
-    end
+
+    zoneQuests = LQD:get_quest_list(zone)
 
     -- Init variables and custom function that will be changed depending on input argument
     local title = GetString(QUESTMAP_QUESTS)..": "
@@ -275,11 +273,11 @@ ZO_HINT_TEXT
 ]]--
 local function FormatQuestName(questName, questNameLayoutType)
     --QuestMap.dm("Debug", "FormatQuestName")
-    QuestMap.dm("Debug", questNameLayoutType)
+    --QuestMap.dm("Debug", questNameLayoutType)
     local layout = QuestMap.QUEST_NAME_LAYOUT[questNameLayoutType]
-    QuestMap.dm("Debug", layout)
+    --QuestMap.dm("Debug", layout)
     local color = layout.color
-    QuestMap.dm("Debug", color)
+    --QuestMap.dm("Debug", color)
     local suffix = layout.suffix
     local color_def = QuestMap.settings["pin_tooltip_colors"][questNameLayoutType]
     color:SetRGBA(unpack(color_def))
@@ -292,33 +290,36 @@ end
 
 local function check_map_state()
     QuestMap.dm("Debug", "Refreshing both Pins and Quest List")
-    if last_mapid and (GetCurrentMapId() ~= last_mapid) then
-        QuestMap.dm("Debug", "changed")
-        QuestMap.dm("Debug", GetCurrentMapId())
-        if GetMapType() > MAPTYPE_ZONE then
-            QuestMap.dm("Debug", "stopped")
-            return
-        end
-        QuestMap.dm("Debug", "RefreshPins")
-        zoneQuests = LQD.zone_quests
-        QuestMap:RefreshPins()
-    else
-        QuestMap.dm("Debug", "Did not change or not assigned")
+    if GetMapType() > MAPTYPE_ZONE then
+        QuestMap.dm("Debug", "Tamriel or Aurbis reached, stopped")
+        return
     end
-    last_mapid = GetCurrentMapId()
+    QuestMap.dm("Debug", "RefreshPins")
+    zoneQuests = LQD.zone_quests
+    QuestMap:RefreshPins()
 end
 
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", function()
+    QuestMap.dm("Debug", "OnWorldMapChanged")
     check_map_state()
 end)
 
 WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
+    QuestMap.dm("Debug", "StateChange")
     if newState == SCENE_SHOWING then
+        QuestMap.dm("Debug", "SCENE_SHOWING")
         check_map_state()
     elseif newState == SCENE_HIDDEN then
+        QuestMap.dm("Debug", "SCENE_HIDDEN")
         check_map_state()
     end
 end)
+
+function on_zone_changed(eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
+  QuestMap.dm("Debug", "on_zone_changed")
+  check_map_state()
+end
+EVENT_MANAGER:RegisterForEvent(QuestMap.idName .. "_zone_changed", EVENT_ZONE_CHANGED, on_zone_changed)
 
 local function assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type)
     --QuestMap.dm("Debug", completed_quest)
@@ -436,12 +437,19 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
 end
 
 local function MapCallbackQuestPins(pinType)
+    --QuestMap.dm("Debug", "MapCallbackQuestPins")
     local hidden_quest
     local quest_flag
 
-    if GetMapType() > MAPTYPE_ZONE then return end
+    if GetMapType() > MAPTYPE_ZONE then
+        QuestMap.dm("Debug", "Tamriel or Aurbis reached, stopped")
+        return
+    end
 
-    if last_mapid and (GetCurrentMapId() ~= last_mapid) then return end
+    if not zoneQuests then
+        QuestMap.dm("Debug", "zoneQuests in not set")
+        return
+    end
     -- Loop over both quests and create a map pin with the quest name
     for key, quest in pairs(zoneQuests) do
 
@@ -470,8 +478,8 @@ local function MapCallbackQuestPins(pinType)
             local cadwell_quest = LQD:is_cadwell_quest(currentQuestId) or false
             local quest_type_data = LQD:get_quest_data(currentQuestId)
             local quest_type = quest_type_data[LQD.quest_data_index.quest_type]
-            QuestMap.dm("Debug", name)
-            QuestMap.dm("Debug", quest_type)
+            --QuestMap.dm("Debug", name)
+            --QuestMap.dm("Debug", quest_type)
 
             -- With the data collected pass it all to assign_quest_flag. The result should be one flag only
             quest_flag = assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type)
@@ -619,7 +627,7 @@ function QuestMap:refresh_specific_layout(name_layout_type, pin_size, pin_level,
 end
 -- Function to refresh pin appearance (e.g. from settings menu)
 function QuestMap:RefreshPinLayout()
-    QuestMap.dm("Debug", "RefreshPinLayout")
+    --QuestMap.dm("Debug", "RefreshPinLayout")
 
     QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel+PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
 
@@ -739,9 +747,6 @@ local function OnLoad(eventCode, addOnName)
             sv[key] = nil
         end
     end
-
-    QuestMap.dm("Debug", "Checking Map State")
-    check_map_state()
 
     -- Get tootip of each individual pin
     local pinTooltipCreator = {
