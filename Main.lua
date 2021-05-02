@@ -366,6 +366,14 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if quest_type == LQD.quest_data_type.quest_type_battleground then fbgq = true end
     if quest_type == LQD.quest_data_type.quest_type_prologue then fprq = true end
     if quest_type == LQD.quest_data_type.quest_type_undaunted_pledge then fpgq = true end
+    --[[ there needs to be a way to hide quests you can't repeat that are marked as
+    battleground or some other uncommon type
+
+    unsure if I want a global flag type and just use this to keep a battleground quest
+    like For Glory from showing up if you did it already
+    ]]--
+    local fnrq = false
+    if repeatable_type == LQD.quest_data_repeat.quest_repeat_not_repeatable then fnrq = true end
 
     --[[
     holliday, daily, and WEEKLY quests are unique
@@ -383,13 +391,17 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if fpgq then
         return flag_type_pledge
     end
-    if (fdaq or fbgq) and (not fhoq or not fwkq or not fpgq)then
+    if fdaq and (not fhoq or not fwkq or not fpgq)then
+        return flag_daily_quest
+    end
+    -- battleground
+    if fbgq and fnrq and not completed_quest then
         return flag_daily_quest
     end
     --[[
     Completed takes precedence over other states
     ]]--
-    if fcpq and (not fdaq or not fwkq or not fhoq  or not fbgq) then
+    if fcpq and (not fdaq or not fwkq or not fhoq) then
         return flag_completed_quest
     end
 
