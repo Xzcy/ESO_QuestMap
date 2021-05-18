@@ -2,7 +2,7 @@
 ## Version: 2.98
 ## AddOnVersion: 298
 ## Author: CaptainBlagbird, Sharlikran
-## APIVersion: 100033 100035
+## APIVersion: 100034 100035
 ## Description: Displays quest givers on the world map
 ## SavedVariables: QuestMap_SavedVariables
 ## DependsOn: LibMapPins-1.0>=10030 LibGPS>=65 LibQuestData>=223
