@@ -12,14 +12,14 @@ local strings = {
     QUESTMAP_UNCOMPLETED          = "No completadas",
     QUESTMAP_HIDDEN               = "Ocultadas manualmente",
     QUESTMAP_STARTED              = "Comenzadas",
-    QUESTMAP_GUILD                = "Guild",
+    QUESTMAP_GUILD                = "Gremio",
     QUESTMAP_DAILY                = "Diarias",
     QUESTMAP_SKILL                = "Da punto de habilidad",
     QUESTMAP_CADWELL              = "De Cadwell",
-    QUESTMAP_DUNGEON              = "Dungeon",
+    QUESTMAP_DUNGEON              = "Mazmorra",
 	QUESTMAP_HOLIDAY              = "Festividades",
-    QUESTMAP_WEEKLY               = "Weekly",
-    QUESTMAP_ZONESTORY            = "Zone Story",
+    QUESTMAP_WEEKLY               = "Semanal",
+    QUESTMAP_ZONESTORY            = "Historia de zona",
 
     QUESTMAP_HIDE                 = "Ocultar misión",
     QUESTMAP_UNHIDE               = "Mostrar misión",
@@ -38,7 +38,7 @@ local strings = {
     QUESTMAP_LIB_REQUIRED         = "no instalado.",
 
     -- Settings menu
-    QUESTMAP_MENU_ICON_SET        = "Ícono",
+    QUESTMAP_MENU_ICON_SET        = "Icono",
 
     QUESTMAP_MENU_PIN_SIZE        = "Tamaño del marcador",
     QUESTMAP_MENU_PIN_SIZE_TT     = "Define el tamaño del marcador en el mapa. (Por defecto: "..QuestMap.settings_default.pinSize..")",
@@ -70,102 +70,102 @@ local strings = {
     QUESTMAP_MENU_SHOW_SUFFIX_TT     = "Muestra u oculta los sufijos en las ventanas de información de los marcadores por preferencia personal o como accesibilidad para daltónicos.",
 
     -- Uncompleted quest pin text
-    QUESTMAP_UNCOMPLETED_PIN_COLOR  = "Color de marcadores de misiones no completadas",
+    QUESTMAP_UNCOMPLETED_PIN_COLOR  = "Color de marcador de misiones no completadas",
     QUESTMAP_UNCOMPLETED_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones no completadas.",
 
     QUESTMAP_UNCOMPLETED_TOOLTIP_COLOR  = "Color del texto de inf. de misiones no completadas",
     QUESTMAP_UNCOMPLETED_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones no completadas.",
 
     -- Completed quest pin text
-    QUESTMAP_COMPLETED_PIN_COLOR  = "Color de marcadores de misiones completadas",
+    QUESTMAP_COMPLETED_PIN_COLOR  = "Color de marcador de misiones completadas",
     QUESTMAP_COMPLETED_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones completadas",
 
     QUESTMAP_COMPLETED_TOOLTIP_COLOR  = "Color del texto de inf. de misiones completadas",
     QUESTMAP_COMPLETED_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones completadas.",
 
     -- Hidden quest pin text
-    QUESTMAP_HIDDEN_PIN_COLOR  = "Color de marcadores de misiones ocultas",
+    QUESTMAP_HIDDEN_PIN_COLOR  = "Color de marcador de misiones ocultas",
     QUESTMAP_HIDDEN_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones ocultas.",
 
     QUESTMAP_HIDDEN_TOOLTIP_COLOR  = "Color del texto de misiones ocultas",
     QUESTMAP_HIDDEN_TOOLTIP_COLOR_DESC  = "Cambia el color de los marcadores de misiones ocultas.",
 
     -- Started quest pin text
-    QUESTMAP_STARTED_PIN_COLOR  = "Color de marcadores de misiones comenzadas",
+    QUESTMAP_STARTED_PIN_COLOR  = "Color de marcador de misiones comenzadas",
     QUESTMAP_STARTED_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones comenzadas.",
 
     QUESTMAP_STARTED_TOOLTIP_COLOR  = "Color del texto de inf. de misiones comenzadas",
     QUESTMAP_STARTED_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones comenzadas.",
 
     -- Guild quest pin text
-    QUESTMAP_GUILD_PIN_COLOR  = "Guild Quest Pin Color",
-    QUESTMAP_GUILD_PIN_COLOR_DESC  = "Change Guild Quest Pin Color",
+    QUESTMAP_GUILD_PIN_COLOR  = "Color de marcador de misiones de gremio",
+    QUESTMAP_GUILD_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones de gremio.",
 
-    QUESTMAP_GUILD_TOOLTIP_COLOR  = "Guild Quest Tooltip Color",
-    QUESTMAP_GUILD_TOOLTIP_COLOR_DESC  = "Change Guild Quest Tooltip Color",
+    QUESTMAP_GUILD_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de gremio",
+    QUESTMAP_GUILD_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de gremio.",
 
     -- Daily quest pin text
-    QUESTMAP_DAILY_PIN_COLOR  = "Color de marcadores de misiones diarias",
+    QUESTMAP_DAILY_PIN_COLOR  = "Color de marcador de misiones diarias",
     QUESTMAP_DAILY_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones diarias.",
 
     QUESTMAP_DAILY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones diarias",
     QUESTMAP_DAILY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones diarias.",
 
     -- Weekly Duration quest pin text
-    QUESTMAP_WEEKLY_PIN_COLOR  = "Weekly Quest Pin Color",
-    QUESTMAP_WEEKLY_PIN_COLOR_DESC  = "Change Weekly Quest Pin Color",
+    QUESTMAP_WEEKLY_PIN_COLOR  = "Color de marcador de misiones semanales",
+    QUESTMAP_WEEKLY_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones semanales.",
 
-    QUESTMAP_WEEKLY_TOOLTIP_COLOR  = "Weekly Quest Tooltip Color",
-    QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC  = "Change Weekly Quest Tooltip Color",
+    QUESTMAP_WEEKLY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones semanales",
+    QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones semanales.",
 
     -- Holiday quest pin text
-    QUESTMAP_HOLIDAY_PIN_COLOR  = "Color de marcadores de misiones de evento",
+    QUESTMAP_HOLIDAY_PIN_COLOR  = "Color de marcador de misiones de evento",
     QUESTMAP_HOLIDAY_PIN_COLOR_DESC  = "Cambia el color de los marcadores de eventos festivos.",
 
     QUESTMAP_HOLIDAY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de evento",
     QUESTMAP_HOLIDAY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de eventos festivos.",
 
     -- Cadwell quest pin text
-    QUESTMAP_CADWELL_PIN_COLOR  = "Color de marcadores de misiones de Cadwell.",
+    QUESTMAP_CADWELL_PIN_COLOR  = "Color de marcador de misiones de Cadwell",
     QUESTMAP_CADWELL_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones de Cadwell.",
 
     QUESTMAP_CADWELL_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de Cadwell",
     QUESTMAP_CADWELL_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de Cadwell.",
 
     -- Skill quest pin text
-    QUESTMAP_SKILL_PIN_COLOR  = "Color de marcadores de misiones que dan puntos de habilidad",
+    QUESTMAP_SKILL_PIN_COLOR  = "Color de marcador de misiones que dan puntos de habilidad",
     QUESTMAP_SKILL_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones que otorgan puntos de habilidad.",
 
     QUESTMAP_SKILL_TOOLTIP_COLOR  = "Color del texto de inf. de misiones que dan puntos de habilidad",
     QUESTMAP_SKILL_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones que otorgan puntos de habilidad.",
 
     -- Dungeon quest pin text
-    QUESTMAP_DUNGEON_PIN_COLOR  = "Color de marcadores de misiones de mazmorra.",
+    QUESTMAP_DUNGEON_PIN_COLOR  = "Color de marcador de misiones de mazmorra.",
     QUESTMAP_DUNGEON_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones de mazmorras.",
 
     QUESTMAP_DUNGEON_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de mazmorra",
     QUESTMAP_DUNGEON_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de mazmorras.",
 
     -- Zonestory quest pin text
-    QUESTMAP_ZONESTORY_PIN_COLOR  = "Zonestory Quest Pin Color",
-    QUESTMAP_ZONESTORY_PIN_COLOR_DESC  = "Change Zonestory Quest Pin Color",
+    QUESTMAP_ZONESTORY_PIN_COLOR  = "Color de marcador de misiones de historia de zona",
+    QUESTMAP_ZONESTORY_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones de historia de zona.",
 
-    QUESTMAP_ZONESTORY_TOOLTIP_COLOR  = "Zonestory Quest Tooltip Color",
-    QUESTMAP_ZONESTORY_TOOLTIP_COLOR_DESC  = "Change Zonestory Quest Tooltip Color",
+    QUESTMAP_ZONESTORY_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de zona",
+    QUESTMAP_ZONESTORY_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de historia de zona.",
 
     -- Prologue quest pin text
-    QUESTMAP_PROLOGUE_PIN_COLOR  = "Prologue Quest Pin Color",
-    QUESTMAP_PROLOGUE_PIN_COLOR_DESC  = "Change Prologue Quest Pin Color",
+    QUESTMAP_PROLOGUE_PIN_COLOR  = "Color de marcador de misiones de prólogo",
+    QUESTMAP_PROLOGUE_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones de prólogo.",
 
-    QUESTMAP_PROLOGUE_TOOLTIP_COLOR  = "Prologue Quest Tooltip Color",
-    QUESTMAP_PROLOGUE_TOOLTIP_COLOR_DESC  = "Change Prologue Quest Tooltip Color",
+    QUESTMAP_PROLOGUE_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de prólogo",
+    QUESTMAP_PROLOGUE_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de prólogo.",
 
     -- Pledges quest pin text
-    QUESTMAP_PLEDGES_PIN_COLOR  = "Pledges Quest Pin Color",
-    QUESTMAP_PLEDGES_PIN_COLOR_DESC  = "Change Pledges Quest Pin Color",
+    QUESTMAP_PLEDGES_PIN_COLOR  = "Color de marcador de misiones de compromisos",
+    QUESTMAP_PLEDGES_PIN_COLOR_DESC  = "Cambia el color de los marcadores de misiones de compromisos.",
 
-    QUESTMAP_PLEDGES_TOOLTIP_COLOR  = "Pledges Quest Tooltip Color",
-    QUESTMAP_PLEDGES_TOOLTIP_COLOR_DESC  = "Change Pledges Quest Tooltip Color",
+    QUESTMAP_PLEDGES_TOOLTIP_COLOR  = "Color del texto de inf. de misiones de compromisos",
+    QUESTMAP_PLEDGES_TOOLTIP_COLOR_DESC  = "Cambia el color del texto en las ventanas de información de misiones de compromisos.",
 
 }
 
