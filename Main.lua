@@ -33,6 +33,7 @@ local flag_main_story          = 12
 local flag_type_battleground   = 13
 local flag_type_prologue       = 14
 local flag_type_pledge         = 15
+local flag_zone_story_quest = 16
 
 -- Local variables
 local zoneQuests = {}
@@ -326,7 +327,7 @@ function on_zone_changed(eventCode, zoneName, subZoneName, newSubzone, zoneId, s
 end
 EVENT_MANAGER:RegisterForEvent(QuestMap.idName .. "_zone_changed", EVENT_ZONE_CHANGED, on_zone_changed)
 
-local function assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type)
+local function assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
     --QuestMap.dm("Debug", completed_quest)
     --QuestMap.dm("Debug", hidden_quest)
     --QuestMap.dm("Debug", started_quest)
@@ -346,7 +347,7 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     local fduq = false -- flag_dungeon_quest
     local fhoq = false -- flag_holiday_quest
     local fwkq = false -- flag_weekly_quest
-    local fmsq = false -- flag_main_story
+    local fzsq = false -- flag_zone_story_quest
     local fbgq = false -- flag_type_battleground
     local fprq = false -- flag_type_prologue
     local fpgq = false -- flag_type_pledge
@@ -362,10 +363,11 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if quest_type == LQD.quest_data_type.quest_type_dungeon then fduq = true end
     if quest_type == LQD.quest_data_type.quest_type_holiday_event then fhoq = true end
     if repeatable_type == LQD.quest_data_repeat.quest_repeat_repeatable then fwkq = true end
-    if quest_type == LQD.quest_data_type.quest_type_main_story then fmsq = true end
     if quest_type == LQD.quest_data_type.quest_type_battleground then fbgq = true end
     if quest_type == LQD.quest_data_type.quest_type_prologue then fprq = true end
     if quest_type == LQD.quest_data_type.quest_type_undaunted_pledge then fpgq = true end
+
+    if quest_display_type == LQD.quest_display_type.zone_story then fzsq = true end
     --[[ there needs to be a way to hide quests you can't repeat that are marked as
     battleground or some other uncommon type
 
@@ -444,8 +446,8 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     if fduq then
         return flag_dungeon_quest
     end
-    if fmsq then
-        return flag_main_story
+    if fzsq then
+        return flag_zone_story_quest
     end
     if fprq then
         return flag_type_prologue
@@ -506,11 +508,17 @@ local function MapCallbackQuestPins(pinType)
             local cadwell_quest = LQD:is_cadwell_quest(currentQuestId) or false
             local quest_type_data = LQD:get_quest_data(currentQuestId)
             local quest_type = quest_type_data[LQD.quest_data_index.quest_type]
+            local quest_display_type
+            if quest_type_data[LQD.quest_data_index.quest_display_type] then
+              quest_display_type = quest_type_data[LQD.quest_data_index.quest_display_type]
+            else
+              quest_display_type = INSTANCE_DISPLAY_TYPE_NONE
+            end
             --QuestMap.dm("Debug", name)
             --QuestMap.dm("Debug", quest_type)
 
             -- With the data collected pass it all to assign_quest_flag. The result should be one flag only
-            quest_flag = assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type)
+            quest_flag = assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
 
             local pinInfo = { id = currentQuestId } -- pinName is defined later
 
@@ -586,7 +594,7 @@ local function MapCallbackQuestPins(pinType)
             end
 
             if pinType == QuestMap.PIN_TYPE_QUEST_ZONESTORY then
-                if quest_flag == flag_main_story then
+                if quest_flag == flag_zone_story_quest then
                     if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_ZONESTORY) then
                         --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_ZONESTORY)
                         pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_ZONESTORY)
