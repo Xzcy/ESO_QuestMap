@@ -1,11 +1,11 @@
-## Title: Quest Map v3.01
-## Version: 3.01
-## AddOnVersion: 301
+## Title: Quest Map v3.02
+## Version: 3.02
+## AddOnVersion: 302
 ## Author: CaptainBlagbird, Sharlikran
-## APIVersion: 101032 101033
+## APIVersion: 101033 101034
 ## Description: Displays quest givers on the world map
 ## SavedVariables: QuestMap_SavedVariables
-## DependsOn: LibMapPins-1.0>=10034 LibGPS>=66 LibQuestData>=239
+## DependsOn: LibMapPins-1.0>=10034 LibGPS>=66 LibQuestData>=240
 ## OptionalDependsOn: LibAddonMenu-2.0>=33 LibMsgWin-1.0>=11 LibDebugLogger>=196 DebugLogViewer
 
 ; Resources
