@@ -12,6 +12,7 @@ local LMW = LibMsgWin
 local GPS = LibGPS3
 local LQD = LibQuestData
 local SDLV = DebugLogViewer
+local LMD = LibMapData
 
 -- Constants
 local PIN_PRIORITY_OFFSET = 1
@@ -291,38 +292,33 @@ local function FormatQuestName(questName, questNameLayoutType)
     end
 end
 
-local function check_map_state()
-    QuestMap.dm("Debug", "Refreshing both Pins and Quest List")
-    if GetMapType() > MAPTYPE_ZONE then
-        QuestMap.dm("Debug", "Tamriel or Aurbis reached, stopped")
-        return
-    end
-    QuestMap.dm("Debug", "RefreshPins")
+LMD:RegisterCallback(LMD.callbackType.OnWorldMapChanged,
+  function()
+    QuestMap.dm("Debug", "OnWorldMapChanged")
     zoneQuests = LQD.zone_quests
     QuestMap:RefreshPins()
-end
+  end)
 
-CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", function()
-    QuestMap.dm("Debug", "OnWorldMapChanged")
-    check_map_state()
-end)
+LMD:RegisterCallback(LMD.callbackType.WorldMapSceneStateChange,
+  function()
+    QuestMap.dm("Debug", "WorldMapSceneStateChange")
+    zoneQuests = LQD.zone_quests
+    QuestMap:RefreshPins()
+  end)
 
-WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
-    QuestMap.dm("Debug", "StateChange")
-    if newState == SCENE_SHOWING then
-        QuestMap.dm("Debug", "SCENE_SHOWING")
-        check_map_state()
-    elseif newState == SCENE_HIDDEN then
-        QuestMap.dm("Debug", "SCENE_HIDDEN")
-        check_map_state()
-    end
-end)
+LMD:RegisterCallback(LMD.callbackType.EVENT_LINKED_WORLD_POSITION_CHANGED,
+  function()
+    QuestMap.dm("Debug", "EVENT_LINKED_WORLD_POSITION_CHANGED")
+    zoneQuests = LQD.zone_quests
+    QuestMap:RefreshPins()
+  end)
 
-function on_zone_changed(eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
-  QuestMap.dm("Debug", "on_zone_changed")
-  check_map_state()
-end
-EVENT_MANAGER:RegisterForEvent(QuestMap.idName .. "_zone_changed", EVENT_ZONE_CHANGED, on_zone_changed)
+LMD:RegisterCallback(LMD.callbackType.EVENT_ZONE_CHANGED,
+  function()
+    QuestMap.dm("Debug", "EVENT_ZONE_CHANGED")
+    zoneQuests = LQD.zone_quests
+    QuestMap:RefreshPins()
+  end)
 
 local function assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
     --QuestMap.dm("Debug", completed_quest)
@@ -468,8 +464,8 @@ local function MapCallbackQuestPins(pinType)
     local hidden_quest
     local quest_flag
 
-    if GetMapType() > MAPTYPE_ZONE then
-        QuestMap.dm("Debug", "Tamriel or Aurbis reached, stopped")
+    if LMD.isWorld then
+        --QuestMap.dm("Debug", "Tamriel or Aurbis reached, stopped")
         return
     end
 
