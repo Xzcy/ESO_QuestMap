@@ -256,19 +256,19 @@ QuestMap.QUEST_NAME_LAYOUT = {
     {
         color_default = { [1] = 0.6039215922, [2] = 0.3882353008, [3] = 0.1372549087, [4] = 1, },
         color = QuestMap.tooltip_color[QuestMap.PIN_TYPE_QUEST_ZONESTORY],
-        suffix = "(ZO)",
+        suffix = "(ZS)",
     },
     [QuestMap.PIN_TYPE_QUEST_PROLOGUE] =
     {
         color_default = { [1] = 0.6941176653, [2] = 0.6862745285, [3] = 0.7411764860, [4] = 1, },
         color = QuestMap.tooltip_color[QuestMap.PIN_TYPE_QUEST_PROLOGUE],
-        suffix = "(ZO)",
+        suffix = "(PR)",
     },
     [QuestMap.PIN_TYPE_QUEST_PLEDGES] =
     {
         color_default = { [1] = 1, [2] = 0.4078431427, [3] = 0.3803921640, [4] = 1, },
         color = QuestMap.tooltip_color[QuestMap.PIN_TYPE_QUEST_PLEDGES],
-        suffix = "(ZO)",
+        suffix = "(UP)",
     },
 }
 

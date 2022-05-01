@@ -18,7 +18,7 @@ local panelData = {
     name = QuestMap.displayName,
     displayName = "|c70C0DE"..QuestMap.displayName.."|r",
     author = "|c70C0DECaptainBlagbird|r, |cff9b15Sharlikran|r",
-    version = "3.02",
+    version = "3.03",
     slashCommand = "/questmap", --(optional) will register a keybind to open to this panel
     registerForRefresh = true,  --boolean (optional) (will refresh all options controls when a setting is changed and when the panel is shown)
     registerForDefaults = true, --boolean (optional) (will set all options controls back to default values)
@@ -109,6 +109,7 @@ local optionsTable = {
         width = "full",
     },
     -- toggle option to show quest list when pins are stacked
+    --[[
     {
         type = "checkbox",
         name = GetString(QUESTMAP_MENU_TOGGLE_COMPLETED_MSG),
@@ -118,6 +119,7 @@ local optionsTable = {
         default = QuestMap.settings_default.displayQuestList,
         width = "full",
     },
+    ]]--
     -- Uncompleted pins
     {
         type = "colorpicker",

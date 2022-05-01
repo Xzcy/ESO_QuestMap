@@ -86,7 +86,7 @@ local function p(s)
         s = s:gsub("|cFFFFFF", "")
         temp_state = QuestMap.show_log
         QuestMap.show_log = true
-        --QuestMap.dm("Debug", s)
+        QuestMap.dm("Debug", s)
         QuestMap.show_log = temp_state
     else
         -- Add addon name to message
@@ -96,10 +96,7 @@ local function p(s)
         -- Replace newline character with newline + ESO golden (because newline resets color to default yellow)
         s = s:gsub("\n", "\n|cC5C29E")
         -- Display message
-        temp_state = QuestMap.show_log
-        QuestMap.show_log = true
-        --QuestMap.dm("Debug", s)
-        QuestMap.show_log = temp_state
+        CHAT_ROUTER:AddSystemMessage(s)
     end
 end
 
@@ -981,11 +978,14 @@ local function OnLoad(eventCode, addOnName)
             if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN)..": |cFFFFFF"..LQD:get_quest_name(pin.m_PinTag.id)) end
             QuestMap:RefreshPins()
         end}})
-    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_COMPLETED, {[1] = {name = function(pin) return zo_strformat("Quest |cFFFFFF<<1>>|r", LQD:get_quest_name(pin.m_PinTag.id)) end,
-        show = function(pin) return QuestMap.settings.displayQuestList end,
+    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_ZONESTORY, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_HIDE).." |cFFFFFF<<1>>|r", LQD:get_quest_name(pin.m_PinTag.id)) end,
+        show = function(pin) return QuestMap.settings.displayHideQuest end,
         duplicates = function(pin1, pin2) return pin1.m_PinTag.id == pin2.m_PinTag.id end,
         callback = function(pin)
-        -- Do nothing
+            -- Add to table which holds all the hidden quests
+            QuestMap.settings.hiddenQuests[pin.m_PinTag.id] = LQD:get_quest_name(pin.m_PinTag.id)
+            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN)..": |cFFFFFF"..LQD:get_quest_name(pin.m_PinTag.id)) end
+            QuestMap:RefreshPins()
         end}})
     LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_HIDDEN, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_UNHIDE).." |cFFFFFF<<1>>|r", LQD:get_quest_name(pin.m_PinTag.id)) end,
         show = function(pin) return QuestMap.settings.displayHideQuest end,
