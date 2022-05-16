@@ -292,34 +292,6 @@ local function FormatQuestName(questName, questNameLayoutType)
     end
 end
 
-LMD:RegisterCallback(LMD.callbackType.OnWorldMapChanged,
-  function()
-    QuestMap.dm("Debug", "OnWorldMapChanged")
-    zoneQuests = LQD.zone_quests
-    QuestMap:RefreshPins()
-  end)
-
-LMD:RegisterCallback(LMD.callbackType.WorldMapSceneStateChange,
-  function()
-    QuestMap.dm("Debug", "WorldMapSceneStateChange")
-    zoneQuests = LQD.zone_quests
-    QuestMap:RefreshPins()
-  end)
-
-LMD:RegisterCallback(LMD.callbackType.EVENT_LINKED_WORLD_POSITION_CHANGED,
-  function()
-    QuestMap.dm("Debug", "EVENT_LINKED_WORLD_POSITION_CHANGED")
-    zoneQuests = LQD.zone_quests
-    QuestMap:RefreshPins()
-  end)
-
-LMD:RegisterCallback(LMD.callbackType.EVENT_ZONE_CHANGED,
-  function()
-    QuestMap.dm("Debug", "EVENT_ZONE_CHANGED")
-    zoneQuests = LQD.zone_quests
-    QuestMap:RefreshPins()
-  end)
-
 local function assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
     --QuestMap.dm("Debug", completed_quest)
     --QuestMap.dm("Debug", hidden_quest)
@@ -459,6 +431,14 @@ local function assign_quest_flag(completed_quest, hidden_quest, started_quest, s
     return 0
 end
 
+local lastZone = ""
+local function UpdateZoneQuestData()
+    -- Get quest list for that zone from database
+    QuestMap.dm("Debug", "UpdateZoneQuestData")
+    zoneQuests = LQD:get_quest_list(LMD.mapTexture)
+    lastZone = LMD.mapTexture
+end
+
 local function MapCallbackQuestPins(pinType)
     --QuestMap.dm("Debug", "MapCallbackQuestPins")
     local hidden_quest
@@ -473,6 +453,11 @@ local function MapCallbackQuestPins(pinType)
         QuestMap.dm("Debug", "zoneQuests in not set")
         return
     end
+
+    if LMD.mapTexture ~= lastZone then
+      UpdateZoneQuestData()
+    end
+
     -- Loop over both quests and create a map pin with the quest name
     for key, quest in pairs(zoneQuests) do
 
@@ -730,7 +715,6 @@ local function SetQuestsInZoneHidden(str)
     usage = GetString(QUESTMAP_SLASH_USAGE)
     if type(str) ~= "string" then return end
     if ZO_WorldMap:IsHidden() then p(GetString(QUESTMAP_SLASH_MAPINFO)); return end
-    local map = LMP:GetZoneAndSubzone(true, false, true)
 
     -- Trim whitespaces from input string
     argument = str:gsub("^%s*(.-)%s*$", "%1")
@@ -740,7 +724,7 @@ local function SetQuestsInZoneHidden(str)
     if str ~= "unhide" and str ~= "hide" then p(usage); return end
 
     -- Get quest list for that zone from database
-    local questlist = LQD:get_quest_list(map)
+    local questlist = LQD:get_quest_list(LMD.mapTexture)
 
     if str == "unhide" then
         for _, quest in ipairs(questlist) do
@@ -786,7 +770,7 @@ local function on_quest_removed(eventCode)
 end
 EVENT_MANAGER:RegisterForEvent(QuestMap.idName, EVENT_QUEST_REMOVED, on_quest_removed)
 
--- Event handler function for EVENT_PLAYER_ACTIVATED
+-- Event handler function for EVENT_ADD_ON_LOADED
 local function OnLoad(eventCode, addOnName)
     if addOnName ~= QuestMap.idName then return end
     QuestMap.dm("Debug", "Starting QuestMap")
