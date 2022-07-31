@@ -142,7 +142,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_UNCOMPLETED)
         -- Check the completedQuests list and only add not matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and not LQD.completed_quests[quest[LQD.quest_map_pin_index.quest_id]] then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -152,7 +152,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_COMPLETED)
         -- Check the completedQuests list and only add matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and LQD.completed_quests[quest[LQD.quest_map_pin_index.quest_id]] then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -162,7 +162,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_HIDDEN)
         -- Check the hiddenQuests list in the saved variables and only add matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and QuestMap.settings.hiddenQuests[quest[LQD.quest_map_pin_index.quest_id]] then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -172,7 +172,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_STARTED)
         -- Check the startedQuests list in the saved variables and only add matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and LQD.started_quests[quest[LQD.quest_map_pin_index.quest_id]] then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -182,7 +182,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_GUILD)
         -- Check the startedQuests list in the saved variables and only add matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and LQD:get_quest_repeat(quest[LQD.quest_map_pin_index.quest_id]) == 1 then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -192,7 +192,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_DAILY)
         -- Check the startedQuests list in the saved variables and only add matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and LQD:get_quest_repeat(quest[LQD.quest_map_pin_index.quest_id]) == 2 then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -202,7 +202,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_WEEKLY)
         -- Check the startedQuests list in the saved variables and only add matching quests
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and LQD:get_quest_repeat(quest[LQD.quest_map_pin_index.quest_id]) == 3 then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -212,7 +212,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_CADWELL)
         -- Check if quest is a cadwell's almanac quest and only add it if true
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             local isCadwellQuest = LQD:is_cadwell_quest(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and isCadwellQuest then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
@@ -223,7 +223,7 @@ local function DisplayListUI(arg)
         title = title..GetString(QUESTMAP_SKILL)
         -- Check if quest is a skill quest and only add it if true
         addQuestToList = function(quest)
-            local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+            local name = GetQuestName(quest[LQD.quest_map_pin_index.quest_id])
             if name ~= "" and LQD.quest_rewards_skilpoint[quest[LQD.quest_map_pin_index.quest_id]] then
                 list[quest[LQD.quest_map_pin_index.quest_id]] = name
             end
@@ -460,9 +460,9 @@ local function MapCallbackQuestPins(pinType)
 
     -- Loop over both quests and create a map pin with the quest name
     for key, quest in pairs(zoneQuests) do
-
+        local questId = quest[LQD.quest_map_pin_index.quest_id]
         -- Get quest name and only continue if string isn't empty
-        local name = LQD:get_quest_name(quest[LQD.quest_map_pin_index.quest_id])
+        local name = GetQuestName(questId)
         --QuestMap.dm("Debug", name)
         if name ~= "" then
             if quest[LQD.quest_map_pin_index.global_x] ~= -10 then
@@ -470,21 +470,20 @@ local function MapCallbackQuestPins(pinType)
             end
 
             -- assign Quest ID
-            local currentQuestId = quest[LQD.quest_map_pin_index.quest_id]
             -- Collect all the information about the quest first
-            LQD:set_achievement_quests(currentQuestId)
+            LQD:set_achievement_quests(questId)
 
-            local completed_quest = LQD.completed_quests[currentQuestId] or false
-            if QuestMap.settings.hiddenQuests[currentQuestId] ~= nil then
+            local completed_quest = LQD.completed_quests[questId] or false
+            if QuestMap.settings.hiddenQuests[questId] ~= nil then
                 hidden_quest = true
             else
                 hidden_quest = false
             end
-            local started_quest = LQD.started_quests[currentQuestId] or false
-            local repeatable_type = LQD:get_quest_repeat(currentQuestId)
-            local skill_quest = LQD.quest_rewards_skilpoint[currentQuestId] or false
-            local cadwell_quest = LQD:is_cadwell_quest(currentQuestId) or false
-            local quest_type_data = LQD:get_quest_data(currentQuestId)
+            local started_quest = LQD.started_quests[questId] or false
+            local repeatable_type = LQD:get_quest_repeat(questId)
+            local skill_quest = LQD.quest_rewards_skilpoint[questId] or false
+            local cadwell_quest = LQD:is_cadwell_quest(questId) or false
+            local quest_type_data = LQD:get_quest_data(questId)
             local quest_type = quest_type_data[LQD.quest_data_index.quest_type]
             local quest_display_type
             if quest_type_data[LQD.quest_data_index.quest_display_type] then
@@ -498,7 +497,7 @@ local function MapCallbackQuestPins(pinType)
             -- With the data collected pass it all to assign_quest_flag. The result should be one flag only
             quest_flag = assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
 
-            local pinInfo = { id = currentQuestId } -- pinName is defined later
+            local pinInfo = { id = questId } -- pinName is defined later
 
             if pinType == QuestMap.PIN_TYPE_QUEST_COMPLETED then
                 -- and (not skill_quest or not cadwell_quest) when skill point and cadwell not active
@@ -737,7 +736,7 @@ local function SetQuestsInZoneHidden(str)
             -- Hiding only necessary for uncompleted quests
             if not LQD.completed_quests[quest[LQD.quest_map_pin_index.quest_id]] then
                 -- Add to list that holds hidden quests
-                QuestMap.settings.hiddenQuests[quest[LQD.quest_map_pin_index.quest_id]] = LQD:get_quest_name(quest.id)
+                QuestMap.settings.hiddenQuests[quest[LQD.quest_map_pin_index.quest_id]] = GetQuestName(quest.id)
             end
         end
         if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN_P).." @ |cFFFFFF"..LMP:GetZoneAndSubzone(true, false, true)) end
@@ -949,31 +948,31 @@ local function OnLoad(eventCode, addOnName)
     QuestMap:RefreshPinLayout()
 
     -- Add click action for pins
-    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_HIDE).." |cFFFFFF<<1>>|r", LQD:get_quest_name(pin.m_PinTag.id)) end,
+    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_HIDE).." |cFFFFFF<<1>>|r", GetQuestName(pin.m_PinTag.id)) end,
         show = function(pin) return QuestMap.settings.displayHideQuest end,
         duplicates = function(pin1, pin2) return pin1.m_PinTag.id == pin2.m_PinTag.id end,
         callback = function(pin)
             -- Add to table which holds all the hidden quests
-            QuestMap.settings.hiddenQuests[pin.m_PinTag.id] = LQD:get_quest_name(pin.m_PinTag.id)
-            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN)..": |cFFFFFF"..LQD:get_quest_name(pin.m_PinTag.id)) end
+            QuestMap.settings.hiddenQuests[pin.m_PinTag.id] = GetQuestName(pin.m_PinTag.id)
+            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN)..": |cFFFFFF"..GetQuestName(pin.m_PinTag.id)) end
             QuestMap:RefreshPins()
         end}})
-    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_ZONESTORY, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_HIDE).." |cFFFFFF<<1>>|r", LQD:get_quest_name(pin.m_PinTag.id)) end,
+    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_ZONESTORY, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_HIDE).." |cFFFFFF<<1>>|r", GetQuestName(pin.m_PinTag.id)) end,
         show = function(pin) return QuestMap.settings.displayHideQuest end,
         duplicates = function(pin1, pin2) return pin1.m_PinTag.id == pin2.m_PinTag.id end,
         callback = function(pin)
             -- Add to table which holds all the hidden quests
-            QuestMap.settings.hiddenQuests[pin.m_PinTag.id] = LQD:get_quest_name(pin.m_PinTag.id)
-            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN)..": |cFFFFFF"..LQD:get_quest_name(pin.m_PinTag.id)) end
+            QuestMap.settings.hiddenQuests[pin.m_PinTag.id] = GetQuestName(pin.m_PinTag.id)
+            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_HIDDEN)..": |cFFFFFF"..GetQuestName(pin.m_PinTag.id)) end
             QuestMap:RefreshPins()
         end}})
-    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_HIDDEN, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_UNHIDE).." |cFFFFFF<<1>>|r", LQD:get_quest_name(pin.m_PinTag.id)) end,
+    LMP:SetClickHandlers(QuestMap.PIN_TYPE_QUEST_HIDDEN, {[1] = {name = function(pin) return zo_strformat(GetString(QUESTMAP_UNHIDE).." |cFFFFFF<<1>>|r", GetQuestName(pin.m_PinTag.id)) end,
         show = function(pin) return QuestMap.settings.displayHideQuest end,
         duplicates = function(pin1, pin2) return pin1.m_PinTag.id == pin2.m_PinTag.id end,
         callback = function(pin)
             -- Remove from table which holds all the hidden quests
             QuestMap.settings.hiddenQuests[pin.m_PinTag.id] = nil
-            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_UNHIDDEN)..": |cFFFFFF"..LQD:get_quest_name(pin.m_PinTag.id)) end
+            if QuestMap.settings.displayClickMsg then p(GetString(QUESTMAP_MSG_UNHIDDEN)..": |cFFFFFF"..GetQuestName(pin.m_PinTag.id)) end
             QuestMap:RefreshPins()
         end}})
 

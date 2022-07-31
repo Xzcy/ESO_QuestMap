@@ -50,8 +50,8 @@ local strings = {
     QUESTMAP_MENU_DISP_MSG          = "Ein-/ausblende-Nachricht anzeigen",
     QUESTMAP_MENU_DISP_MSG_TT       = "Ein-/ausschalten der Nachricht die angezeigt wird, wenn Markierungen ein-/ausgeblendet werden",
 
-    QUESTMAP_MENU_TOGGLE_HIDDEN_MSG  = "Schalter am Pin: Verstecke/Zeige Quests",
-    QUESTMAP_MENU_TOGGLE_HIDDEN_MSG_TT  = "Aktiviert oder deaktiviert einen Schalter an den Karten Quest Pins, welche die Quests anzeigt oder versteckt, wenn du den Pin anklickst.",
+    QUESTMAP_MENU_TOGGLE_HIDDEN_MSG  = "Umschalt-Option, um Quests ein- oder auszublenden",
+    QUESTMAP_MENU_TOGGLE_HIDDEN_MSG_TT  = "Aktiviert oder deaktiviert die Option zum Ein- oder Ausblenden von Quests, wenn ein Quest-Pin angeklickt wird.",
 
     QUESTMAP_MENU_TOGGLE_COMPLETED_MSG  = "Schalter am Pin: Verstecke/Zeige erledigte Quest Liste",
     QUESTMAP_MENU_TOGGLE_COMPLETED_MSG_TT  = "Aktiviert oder deaktiviert einen Schalter an den Karten Quest Pins von erledigten Quests, welche eine Quest Liste anzeigt oder versteckt, wenn du den Pin anklickst.",
