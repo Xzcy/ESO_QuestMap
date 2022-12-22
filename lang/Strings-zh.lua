@@ -40,7 +40,8 @@ local strings = {
     QUESTMAP_LIB_REQUIRED         = "未安装",
 
     -- Settings menu
-    QUESTMAP_MENU_ICON_SET        = "图标设定",
+    QUESTMAP_NORMAL_ICON_SET        = "图标设定",
+    QUESTMAP_CADWELL_ICON_SET        = "Cadwell Icon set",
 
     QUESTMAP_MENU_PIN_SIZE        = "地图标点大小",
     QUESTMAP_MENU_PIN_SIZE_TT     = "决定地图上的标记点大小 (默认："..QuestMap.settings_default.pinSize..")",
@@ -169,6 +170,10 @@ local strings = {
     QUESTMAP_PLEDGES_TOOLTIP_COLOR  = "契约任务提示颜色",
     QUESTMAP_PLEDGES_TOOLTIP_COLOR_DESC  = "更改契约任务提示颜色",
 
+    QUESTMAP_ICON_SETS_HEADER  = "Quest Icon Sets",
+    QUESTMAP_SETTINGS_HEADER  = "Map Pin Settings",
+    QUESTMAP_PIN_COLOR_HEADER  = "Map Pin Color Settings",
+    QUESTMAP_RESET_HIDDEN_HEADER  = "Reset Hidden Map Pins",
 }
 
 for key, value in pairs(strings) do

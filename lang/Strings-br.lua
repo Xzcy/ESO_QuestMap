@@ -20,6 +20,8 @@ local strings = {
 	  QUESTMAP_HOLIDAY              = "Festividade",
     QUESTMAP_WEEKLY               = "Weekly",
     QUESTMAP_ZONESTORY            = "Zone Story",
+    QUESTMAP_PROLOGUE             = "Prologue",
+    QUESTMAP_PLEDGES              = "Pledges",
 
     QUESTMAP_HIDE                 = "Ocultar missão",
     QUESTMAP_UNHIDE               = "Mostrar missão",
@@ -38,7 +40,8 @@ local strings = {
     QUESTMAP_LIB_REQUIRED         = "não instalado.",
 
     -- Settings menu
-    QUESTMAP_MENU_ICON_SET        = "Ícone",
+    QUESTMAP_NORMAL_ICON_SET        = "Ícone",
+    QUESTMAP_CADWELL_ICON_SET        = "Cadwell Icon set",
 
     QUESTMAP_MENU_PIN_SIZE        = "Tamanho do marcador",
     QUESTMAP_MENU_PIN_SIZE_TT     = "Define o tamanho do marcador no mapa. (Por padrão: "..QuestMap.settings_default.pinSize..")",
@@ -167,6 +170,10 @@ local strings = {
     QUESTMAP_PLEDGES_TOOLTIP_COLOR  = "Pledges Quest Tooltip Color",
     QUESTMAP_PLEDGES_TOOLTIP_COLOR_DESC  = "Change Pledges Quest Tooltip Color",
 
+    QUESTMAP_ICON_SETS_HEADER  = "Quest Icon Sets",
+    QUESTMAP_SETTINGS_HEADER  = "Map Pin Settings",
+    QUESTMAP_PIN_COLOR_HEADER  = "Map Pin Color Settings",
+    QUESTMAP_RESET_HIDDEN_HEADER  = "Reset Hidden Map Pins",
 }
 
 for key, value in pairs(strings) do
