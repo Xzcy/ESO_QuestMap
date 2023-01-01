@@ -87,7 +87,7 @@ local function p(s)
     s = s:gsub("|cFFFFFF", "")
     temp_state = QuestMap.show_log
     QuestMap.show_log = true
-    QuestMap.dm("Debug", s)
+    QuestMap:dm("Debug", s)
     QuestMap.show_log = temp_state
   else
     -- Add addon name to message
@@ -276,12 +276,12 @@ ZO_HIGHLIGHT_TEXT
 ZO_HINT_TEXT
 ]]--
 local function FormatQuestName(questName, questNameLayoutType)
-  --QuestMap.dm("Debug", "FormatQuestName")
-  --QuestMap.dm("Debug", questNameLayoutType)
+  --QuestMap:dm("Debug", "FormatQuestName")
+  --QuestMap:dm("Debug", questNameLayoutType)
   local layout = QuestMap.QUEST_NAME_LAYOUT[questNameLayoutType]
-  --QuestMap.dm("Debug", layout)
+  --QuestMap:dm("Debug", layout)
   local color = layout.color
-  --QuestMap.dm("Debug", color)
+  --QuestMap:dm("Debug", color)
   local suffix = layout.suffix
   local color_def = QuestMap.settings["pin_tooltip_colors"][questNameLayoutType]
   color:SetRGBA(unpack(color_def))
@@ -293,13 +293,13 @@ local function FormatQuestName(questName, questNameLayoutType)
 end
 
 local function assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
-  --QuestMap.dm("Debug", completed_quest)
-  --QuestMap.dm("Debug", hidden_quest)
-  --QuestMap.dm("Debug", started_quest)
-  --QuestMap.dm("Debug", skill_quest)
-  --QuestMap.dm("Debug", cadwell_quest)
-  --QuestMap.dm("Debug", repeatable_type)
-  --QuestMap.dm("Debug", quest_type)
+  --QuestMap:dm("Debug", completed_quest)
+  --QuestMap:dm("Debug", hidden_quest)
+  --QuestMap:dm("Debug", started_quest)
+  --QuestMap:dm("Debug", skill_quest)
+  --QuestMap:dm("Debug", cadwell_quest)
+  --QuestMap:dm("Debug", repeatable_type)
+  --QuestMap:dm("Debug", quest_type)
 
   local fcpq = false -- flag_completed_quest
   local fucq = false -- flag_uncompleted_quest
@@ -433,27 +433,28 @@ end
 
 local lastZone = ""
 local function UpdateZoneQuestData()
+  --QuestMap:dm("Debug", "UpdateZoneQuestData")
   -- Get quest list for that zone from database
   if LMD.mapTexture ~= lastZone then
-    -- QuestMap.dm("Debug", "UpdateZoneQuestData")
+  QuestMap:dm("Warn", "UpdateZoneQuestData")
     zoneQuests = LQD:get_quest_list(LMD.mapTexture)
     lastZone = LMD.mapTexture
   end
-  -- QuestMap.dm("Debug", "Data Update Not Needed")
+  -- QuestMap:dm("Debug", "Data Update Not Needed")
 end
 
 local function MapCallbackQuestPins(pinType)
-  --QuestMap.dm("Debug", "MapCallbackQuestPins")
+  QuestMap:dm("Debug", "MapCallbackQuestPins: " .. pinType)
   local hidden_quest
   local quest_flag
 
   if LMD.isWorld then
-    --QuestMap.dm("Debug", "Tamriel or Aurbis reached, stopped")
+    --QuestMap:dm("Debug", "Tamriel or Aurbis reached, stopped")
     return
   end
 
   if not zoneQuests then
-    QuestMap.dm("Debug", "zoneQuests in not set")
+    QuestMap:dm("Debug", "zoneQuests in not set")
     return
   end
 
@@ -464,7 +465,7 @@ local function MapCallbackQuestPins(pinType)
     local questId = quest[LQD.quest_map_pin_index.quest_id]
     -- Get quest name and only continue if string isn't empty
     local name = GetQuestName(questId)
-    --QuestMap.dm("Debug", name)
+    --QuestMap:dm("Debug", name)
     if name ~= "" then
       if quest[LQD.quest_map_pin_index.global_x] ~= -10 then
         quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y] = GPS:GlobalToLocal(quest[LQD.quest_map_pin_index.global_x], quest[LQD.quest_map_pin_index.global_y])
@@ -492,8 +493,8 @@ local function MapCallbackQuestPins(pinType)
       else
         quest_display_type = INSTANCE_DISPLAY_TYPE_NONE
       end
-      --QuestMap.dm("Debug", name)
-      --QuestMap.dm("Debug", quest_type)
+      --QuestMap:dm("Debug", name)
+      --QuestMap:dm("Debug", quest_type)
 
       -- With the data collected pass it all to assign_quest_flag. The result should be one flag only
       quest_flag = assign_quest_flag(completed_quest, hidden_quest, started_quest, skill_quest, cadwell_quest, repeatable_type, quest_type, quest_display_type)
@@ -504,7 +505,7 @@ local function MapCallbackQuestPins(pinType)
         -- and (not skill_quest or not cadwell_quest) when skill point and cadwell not active
         if quest_flag == flag_completed_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_COMPLETED) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_COMPLETED)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_COMPLETED)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_COMPLETED)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_COMPLETED, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -514,7 +515,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_HIDDEN then
         if quest_flag == flag_hidden_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_HIDDEN) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_HIDDEN)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_HIDDEN)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_HIDDEN)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_HIDDEN, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -524,7 +525,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_STARTED then
         if quest_flag == flag_started_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_STARTED) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_STARTED)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_STARTED)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_STARTED)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_STARTED, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -534,7 +535,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_GUILD then
         if quest_flag == flag_guild_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_GUILD) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_GUILD)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_GUILD)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_GUILD)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_GUILD, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -544,7 +545,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_DAILY then
         if quest_flag == flag_daily_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_DAILY) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_DAILY)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_DAILY)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_DAILY)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_DAILY, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -554,7 +555,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_WEEKLY then
         if quest_flag == flag_weekly_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_WEEKLY) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_WEEKLY)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_WEEKLY)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_WEEKLY)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_WEEKLY, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -564,7 +565,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_HOLIDAY then
         if quest_flag == flag_holiday_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_HOLIDAY) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_HOLIDAY)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_HOLIDAY)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_HOLIDAY)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_HOLIDAY, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -574,7 +575,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_ZONESTORY then
         if quest_flag == flag_zone_story_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_ZONESTORY) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_ZONESTORY)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_ZONESTORY)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_ZONESTORY)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_ZONESTORY, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -584,7 +585,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_SKILL then
         if quest_flag == flag_skill_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_SKILL) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_SKILL)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_SKILL)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_SKILL)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_SKILL, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -594,7 +595,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_CADWELL then
         if quest_flag == flag_cadwell_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_CADWELL) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_CADWELL)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_CADWELL)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_CADWELL)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_CADWELL, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -604,7 +605,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_DUNGEON then
         if quest_flag == flag_dungeon_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_DUNGEON) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_DUNGEON)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_DUNGEON)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_DUNGEON)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_DUNGEON, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -614,7 +615,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_PROLOGUE then
         if quest_flag == flag_type_prologue then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_PROLOGUE) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_PROLOGUE)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_PROLOGUE)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_PROLOGUE)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_PROLOGUE, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -624,7 +625,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_PLEDGES then
         if quest_flag == flag_type_pledge then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_PLEDGES) then
-            --QuestMap.dm("Debug", QuestMap.PIN_TYPE_QUEST_PLEDGES)
+            --QuestMap:dm("Debug", QuestMap.PIN_TYPE_QUEST_PLEDGES)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_PLEDGES)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_PLEDGES, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -634,7 +635,7 @@ local function MapCallbackQuestPins(pinType)
       if pinType == QuestMap.PIN_TYPE_QUEST_UNCOMPLETED then
         if quest_flag == flag_uncompleted_quest then
           if LMP:IsEnabled(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED) then
-            --QuestMap.dm("Debug", "Drawing Uncompleted Pin"..name)
+            --QuestMap:dm("Debug", "Drawing Uncompleted Pin"..name)
             pinInfo.pinName = FormatQuestName(name, QuestMap.PIN_TYPE_QUEST_UNCOMPLETED)
             LMP:CreatePin(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, pinInfo, quest[LQD.quest_map_pin_index.local_x], quest[LQD.quest_map_pin_index.local_y])
           end
@@ -643,11 +644,11 @@ local function MapCallbackQuestPins(pinType)
       --[[
       ]]--
 
-      --QuestMap.dm("Debug", "Next Quest")
+      --QuestMap:dm("Debug", "Next Quest")
 
     end
   end
-  --QuestMap.dm("Debug", "End --------------------")
+  --QuestMap:dm("Debug", "End --------------------")
 end
 
 function QuestMap:refresh_specific_layout(name_layout_type, pin_size, pin_level, pin_texture)
@@ -661,7 +662,7 @@ function QuestMap:refresh_specific_layout(name_layout_type, pin_size, pin_level,
 end
 -- Function to refresh pin appearance (e.g. from settings menu)
 function QuestMap:RefreshPinLayout()
-  --QuestMap.dm("Debug", "RefreshPinLayout")
+  --QuestMap:dm("Debug", "RefreshPinLayout")
 
   QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
@@ -779,7 +780,7 @@ EVENT_MANAGER:RegisterForEvent(QuestMap.idName, EVENT_QUEST_REMOVED, on_quest_re
 -- Event handler function for EVENT_ADD_ON_LOADED
 local function OnLoad(eventCode, addOnName)
   if addOnName ~= QuestMap.idName then return end
-  QuestMap.dm("Debug", "Starting QuestMap")
+  QuestMap:dm("Debug", "OnAddOnLoaded")
 
   -- Set up SavedVariables table
   QuestMap.settings = ZO_SavedVars:NewAccountWide("QuestMap_SavedVariables", 5, nil, QuestMap.settings_default)
