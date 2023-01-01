@@ -41,6 +41,8 @@ local strings = {
 
     -- Settings menu
     QUESTMAP_NORMAL_ICON_SET          = "Set d'icônes",
+    QUESTMAP_STORY_ICON_SET        = "Story Icon set",
+    QUESTMAP_SKILLPOINT_ICON_SET        = "Skill Point Icon set",
     QUESTMAP_CADWELL_ICON_SET        = "Cadwell Icon set",
 
     QUESTMAP_MENU_PIN_SIZE          = "Taille marqueur sur la carte",

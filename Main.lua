@@ -663,33 +663,33 @@ end
 function QuestMap:RefreshPinLayout()
   --QuestMap.dm("Debug", "RefreshPinLayout")
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_COMPLETED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_COMPLETED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_HIDDEN, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_HIDDEN, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_STARTED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_STARTED, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_GUILD, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_GUILD, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_DAILY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_DAILY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_WEEKLY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_WEEKLY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_SKILL, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_SKILL, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.skillPointIconSet])
 
   QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_CADWELL, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.cadwell_icon_sets[QuestMap.settings.cadwellIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_DUNGEON, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_DUNGEON, QuestMap.settings.pinSize, QuestMap.settings.pinLevel, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_HOLIDAY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_HOLIDAY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_ZONESTORY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_ZONESTORY, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.storyIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_PROLOGUE, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_PROLOGUE, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 
-  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_PLEDGES, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+  QuestMap:refresh_specific_layout(QuestMap.PIN_TYPE_QUEST_PLEDGES, QuestMap.settings.pinSize, QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET, QuestMap.icon_sets[QuestMap.settings.normalIconSet])
 end
 
 -- Function to refresh pin filters (e.g. from settings menu)
@@ -812,43 +812,43 @@ local function OnLoad(eventCode, addOnName)
   local pinLayout = {
     [QuestMap.PIN_TYPE_QUEST_UNCOMPLETED] = {
       level = QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]
     },
     [QuestMap.PIN_TYPE_QUEST_COMPLETED] = {
       level = QuestMap.settings.pinLevel,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_COMPLETED]
     },
     [QuestMap.PIN_TYPE_QUEST_HIDDEN] = {
       level = QuestMap.settings.pinLevel,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_HIDDEN]
     },
     [QuestMap.PIN_TYPE_QUEST_STARTED] = {
       level = QuestMap.settings.pinLevel + PIN_PRIORITY_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_STARTED]
     },
     [QuestMap.PIN_TYPE_QUEST_GUILD] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_GUILD]
     },
     [QuestMap.PIN_TYPE_QUEST_DAILY] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_DAILY]
     },
     [QuestMap.PIN_TYPE_QUEST_WEEKLY] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_WEEKLY]
     },
@@ -860,37 +860,37 @@ local function OnLoad(eventCode, addOnName)
     },
     [QuestMap.PIN_TYPE_QUEST_SKILL] = {
       level = QuestMap.settings.pinLevel,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.skillPointIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_SKILL]
     },
     [QuestMap.PIN_TYPE_QUEST_DUNGEON] = {
       level = QuestMap.settings.pinLevel,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_DUNGEON]
     },
     [QuestMap.PIN_TYPE_QUEST_HOLIDAY] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_HOLIDAY]
     },
     [QuestMap.PIN_TYPE_QUEST_ZONESTORY] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.storyIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_ZONESTORY]
     },
     [QuestMap.PIN_TYPE_QUEST_PROLOGUE] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_PROLOGUE]
     },
     [QuestMap.PIN_TYPE_QUEST_PLEDGES] = {
       level = QuestMap.settings.pinLevel + DAILY_REPEATABLE_PIN_OFFSET,
-      texture = QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet],
+      texture = QuestMap.icon_sets[QuestMap.settings.normalIconSet],
       size = QuestMap.settings.pinSize,
       tint = QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_PLEDGES]
     },

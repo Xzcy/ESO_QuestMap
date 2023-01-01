@@ -114,22 +114,35 @@ QuestMap.PIN_TYPE_QUEST_PROLOGUE_PVP = "QuestMap_prologue_pvp"
 QuestMap.PIN_TYPE_QUEST_PLEDGES_PVP = "QuestMap_pledges_pvp"
 
 QuestMap.icon_sets = {
-  QuestMap = "QuestMap/icons/pinQuestCompleted.dds",
+  Black = "esoui/art/compass/quest_icon.dds",
+  BlackInverted = "QuestMap/icons/eso_inverted_uncompleted.dds",
+  Bubble = "QuestMap/icons/dest_quest_3.dds",
   ESO = "QuestMap/icons/eso_completed.dds",
   ESOInverted = "QuestMap/icons/eso_inverted_completed.dds",
+  Glow = "esoui/art/compass/quest_available_icon.dds",
   Outline = "QuestMap/icons/pin_quest_outline.dds",
+  QuestMap = "QuestMap/icons/pinQuestCompleted.dds",
+  StoryBlack = "/esoui/art/compass/zonestoryquest_icon.dds",
+  StoryGlow = "/esoui/art/compass/zonestoryquest_available_icon.dds",
+  StoryWhite = "/esoui/art/compass/zonestoryquest_icon_assisted.dds",
   Straight = "QuestMap/icons/dest_quest_1.dds",
   Tilted = "QuestMap/icons/dest_quest_2.dds",
-  Bubble = "QuestMap/icons/dest_quest_3.dds",
 }
+
 QuestMap.cadwell_icon_sets = {
-  QuestMap = "QuestMap/icons/pinQuestCompleted.dds",
+  Black = "esoui/art/compass/quest_icon.dds",
+  BlackInverted = "QuestMap/icons/eso_inverted_uncompleted.dds",
+  Bubble = "QuestMap/icons/dest_quest_3.dds",
   ESO = "QuestMap/icons/eso_completed.dds",
   ESOInverted = "QuestMap/icons/eso_inverted_completed.dds",
+  Glow = "esoui/art/compass/quest_available_icon.dds",
   Outline = "QuestMap/icons/pin_quest_outline.dds",
+  QuestMap = "QuestMap/icons/pinQuestCompleted.dds",
+  StoryBlack = "/esoui/art/compass/zonestoryquest_icon.dds",
+  StoryGlow = "/esoui/art/compass/zonestoryquest_available_icon.dds",
+  StoryWhite = "/esoui/art/compass/zonestoryquest_icon_assisted.dds",
   Straight = "QuestMap/icons/dest_quest_1.dds",
   Tilted = "QuestMap/icons/dest_quest_2.dds",
-  Bubble = "QuestMap/icons/dest_quest_3.dds",
   Cadwell = "QuestMap/icons/dest_cadwells.dds",
 }
 
@@ -285,7 +298,9 @@ QuestMap.QUEST_NAME_LAYOUT = {
 
 QuestMap.settings_default = {
   ["iconSet"] = "QuestMap",
-  ["iconRepeatableSet"] = "QuestMap",
+  ["normalIconSet"] = "QuestMap",
+  ["storyIconSet"] = "StoryWhite",
+  ["skillPointIconSet"] = "QuestMap",
   ["cadwellIconSet"] = "Cadwell",
   ["pinSize"] = 25,
   ["pinLevel"] = 40,

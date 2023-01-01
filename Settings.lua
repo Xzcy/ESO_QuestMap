@@ -8,11 +8,23 @@ https://github.com/CaptainBlagbird
 local LMP = LibMapPins
 
 local normalIconTexture
+local storyIconTexture
+local skillPointIconTexture
 local cadwellIconTexture
+
 local normalIconSets = {}
+local storyIconSets = {}
+local skillPointIconSets = {}
 local cadwellIconSets = {}
+
 for k, v in pairs(QuestMap.icon_sets) do
   table.insert(normalIconSets, k)
+end
+for k, v in pairs(QuestMap.icon_sets) do
+  table.insert(storyIconSets, k)
+end
+for k, v in pairs(QuestMap.icon_sets) do
+  table.insert(skillPointIconSets, k)
 end
 for k, v in pairs(QuestMap.cadwell_icon_sets) do
   table.insert(cadwellIconSets, k)
@@ -23,7 +35,7 @@ local panelData = {
   name = QuestMap.displayName,
   displayName = "|c70C0DE" .. QuestMap.displayName .. "|r",
   author = "|c70C0DECaptainBlagbird|r, |cff9b15Sharlikran|r",
-  version = "3.10",
+  version = "3.11",
   slashCommand = "/questmap", --(optional) will register a keybind to open to this panel
   registerForRefresh = true, --boolean (optional) (will refresh all options controls when a setting is changed and when the panel is shown)
   registerForDefaults = true, --boolean (optional) (will set all options controls back to default values)
@@ -35,7 +47,10 @@ local panelData = {
 }
 
 local NORMAL_ICON_SET_MENU = 2
-local CADWELL_ICON_SET_MENU = 3
+local STORY_ICON_SET_MENU = 3
+local SKILLPOINT_ICON_SET_MENU = 4
+local CADWELL_ICON_SET_MENU = 5
+
 local optionsTable = {}
 optionsTable[#optionsTable + 1] = {
   type = "header",
@@ -46,13 +61,39 @@ optionsTable[NORMAL_ICON_SET_MENU] = {
   type = "dropdown",
   name = GetString(QUESTMAP_NORMAL_ICON_SET),
   choices = normalIconSets,
-  getFunc = function() return QuestMap.settings.iconRepeatableSet end,
+  getFunc = function() return QuestMap.settings.normalIconSet end,
   setFunc = function(value)
-    QuestMap.settings.iconRepeatableSet = value
-    normalIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+    QuestMap.settings.normalIconSet = value
+    normalIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.normalIconSet])
     QuestMap:RefreshPinLayout()
   end,
-  default = QuestMap.settings_default.iconRepeatableSet,
+  default = QuestMap.settings_default.normalIconSet,
+  width = "full",
+}
+optionsTable[STORY_ICON_SET_MENU] = {
+  type = "dropdown",
+  name = GetString(QUESTMAP_STORY_ICON_SET),
+  choices = storyIconSets,
+  getFunc = function() return QuestMap.settings.storyIconSet end,
+  setFunc = function(value)
+    QuestMap.settings.storyIconSet = value
+    storyIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.storyIconSet])
+    QuestMap:RefreshPinLayout()
+  end,
+  default = QuestMap.settings_default.storyIconSet,
+  width = "full",
+}
+optionsTable[SKILLPOINT_ICON_SET_MENU] = {
+  type = "dropdown",
+  name = GetString(QUESTMAP_SKILLPOINT_ICON_SET),
+  choices = skillPointIconSets,
+  getFunc = function() return QuestMap.settings.skillPointIconSet end,
+  setFunc = function(value)
+    QuestMap.settings.skillPointIconSet = value
+    skillPointIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.skillPointIconSet])
+    QuestMap:RefreshPinLayout()
+  end,
+  default = QuestMap.settings_default.skillPointIconSet,
   width = "full",
 }
 optionsTable[CADWELL_ICON_SET_MENU] = {
@@ -537,8 +578,18 @@ local function CreateTexture(panel)
     -- Create Normal Icon Texture control
     normalIconTexture = WINDOW_MANAGER:CreateControl(QuestMap.idName .. "_Normal_Icon_Texture", panel.controlsToRefresh[NORMAL_ICON_SET_MENU], CT_TEXTURE)
     normalIconTexture:SetAnchor(CENTER, panel.controlsToRefresh[NORMAL_ICON_SET_MENU].dropdown:GetControl(), LEFT, -32, 0)
-    normalIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.iconRepeatableSet])
+    normalIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.normalIconSet])
     normalIconTexture:SetDimensions(32, 32)
+
+    storyIconTexture = WINDOW_MANAGER:CreateControl(QuestMap.idName .. "_Story_Icon_Texture", panel.controlsToRefresh[STORY_ICON_SET_MENU], CT_TEXTURE)
+    storyIconTexture:SetAnchor(CENTER, panel.controlsToRefresh[STORY_ICON_SET_MENU].dropdown:GetControl(), LEFT, -32, 0)
+    storyIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.storyIconSet])
+    storyIconTexture:SetDimensions(32, 32)
+
+    skillPointIconTexture = WINDOW_MANAGER:CreateControl(QuestMap.idName .. "_Skillpoint_Icon_Texture", panel.controlsToRefresh[SKILLPOINT_ICON_SET_MENU], CT_TEXTURE)
+    skillPointIconTexture:SetAnchor(CENTER, panel.controlsToRefresh[SKILLPOINT_ICON_SET_MENU].dropdown:GetControl(), LEFT, -32, 0)
+    skillPointIconTexture:SetTexture(QuestMap.icon_sets[QuestMap.settings.skillPointIconSet])
+    skillPointIconTexture:SetDimensions(32, 32)
 
     cadwellIconTexture = WINDOW_MANAGER:CreateControl(QuestMap.idName .. "_Cadwell_Icon_Texture", panel.controlsToRefresh[CADWELL_ICON_SET_MENU], CT_TEXTURE)
     cadwellIconTexture:SetAnchor(CENTER, panel.controlsToRefresh[CADWELL_ICON_SET_MENU].dropdown:GetControl(), LEFT, -32, 0)
