@@ -10,15 +10,17 @@ QuestMap = {}
 QuestMap.displayName = "Quest Map"
 QuestMap.idName = "QuestMap"
 
+-------------------------------------------------
+----- Logger Function                       -----
+-------------------------------------------------
+QuestMap.show_log = false
 if LibDebugLogger then
   QuestMap.logger = LibDebugLogger.Create(QuestMap.idName)
 end
-
 local logger
 local viewer
 if DebugLogViewer then viewer = true else viewer = false end
 if LibDebugLogger then logger = true else logger = false end
-QuestMap.show_log = false
 
 local function create_log(log_type, log_content)
   if not viewer and log_type == "Info" then
