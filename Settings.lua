@@ -11,11 +11,13 @@ local normalIconTexture
 local storyIconTexture
 local skillPointIconTexture
 local cadwellIconTexture
+local companionIconTexture
 
 local normalIconSets = {}
 local storyIconSets = {}
 local skillPointIconSets = {}
 local cadwellIconSets = {}
+local companionIconSets = {}
 
 for k, v in pairs(QuestMap.icon_sets) do
   table.insert(normalIconSets, k)
@@ -29,13 +31,16 @@ end
 for k, v in pairs(QuestMap.cadwell_icon_sets) do
   table.insert(cadwellIconSets, k)
 end
+for k, v in pairs(QuestMap.companion_icon_sets) do
+  table.insert(companionIconSets, k)
+end
 
 local panelData = {
   type = "panel",
   name = QuestMap.displayName,
   displayName = "|c70C0DE" .. QuestMap.displayName .. "|r",
   author = "|c70C0DECaptainBlagbird|r, |cff9b15Sharlikran|r",
-  version = "3.11",
+  version = "3.12",
   slashCommand = "/questmap", --(optional) will register a keybind to open to this panel
   registerForRefresh = true, --boolean (optional) (will refresh all options controls when a setting is changed and when the panel is shown)
   registerForDefaults = true, --boolean (optional) (will set all options controls back to default values)
@@ -50,6 +55,7 @@ local NORMAL_ICON_SET_MENU = 2
 local STORY_ICON_SET_MENU = 3
 local SKILLPOINT_ICON_SET_MENU = 4
 local CADWELL_ICON_SET_MENU = 5
+local COMPANION_ICON_SET_MENU = 6
 
 local optionsTable = {}
 optionsTable[#optionsTable + 1] = {
@@ -107,6 +113,19 @@ optionsTable[CADWELL_ICON_SET_MENU] = {
     QuestMap:RefreshPinLayout()
   end,
   default = QuestMap.settings_default.cadwellIconSet,
+  width = "full",
+}
+optionsTable[COMPANION_ICON_SET_MENU] = {
+  type = "dropdown",
+  name = GetString(QUESTMAP_COMPANION_ICON_SET),
+  choices = companionIconSets,
+  getFunc = function() return QuestMap.settings.companionIconSet end,
+  setFunc = function(value)
+    QuestMap.settings.companionIconSet = value
+    companionIconTexture:SetTexture(QuestMap.companion_icon_sets[QuestMap.settings.companionIconSet])
+    QuestMap:RefreshPinLayout()
+  end,
+  default = QuestMap.settings_default.companionIconSet,
   width = "full",
 }
 optionsTable[#optionsTable + 1] = {
@@ -595,6 +614,11 @@ local function CreateTexture(panel)
     cadwellIconTexture:SetAnchor(CENTER, panel.controlsToRefresh[CADWELL_ICON_SET_MENU].dropdown:GetControl(), LEFT, -32, 0)
     cadwellIconTexture:SetTexture(QuestMap.cadwell_icon_sets[QuestMap.settings.cadwellIconSet])
     cadwellIconTexture:SetDimensions(32, 32)
+
+    companionIconTexture = WINDOW_MANAGER:CreateControl(QuestMap.idName .. "_Companion_Icon_Texture", panel.controlsToRefresh[COMPANION_ICON_SET_MENU], CT_TEXTURE)
+    companionIconTexture:SetAnchor(CENTER, panel.controlsToRefresh[COMPANION_ICON_SET_MENU].dropdown:GetControl(), LEFT, -32, 0)
+    companionIconTexture:SetTexture(QuestMap.companion_icon_sets[QuestMap.settings.companionIconSet])
+    companionIconTexture:SetDimensions(32, 32)
 
     CALLBACK_MANAGER:UnregisterCallback("LAM-PanelControlsCreated", CreateTexture)
   end

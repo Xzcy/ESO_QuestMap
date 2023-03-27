@@ -16,6 +16,7 @@ local strings = {
   QUESTMAP_DAILY = "Ежедневные",
   QUESTMAP_SKILL = "Очки навыков",
   QUESTMAP_CADWELL = "Кэдвелл",
+  QUESTMAP_COMPANION = "Companion",
   QUESTMAP_DUNGEON = "Dungeon",
   QUESTMAP_HOLIDAY = "Holiday",
   QUESTMAP_WEEKLY = "Weekly",
@@ -44,6 +45,7 @@ local strings = {
   QUESTMAP_STORY_ICON_SET = "Story Icon set",
   QUESTMAP_SKILLPOINT_ICON_SET = "Skill Point Icon set",
   QUESTMAP_CADWELL_ICON_SET = "Повторяемый Набор иконок",
+  QUESTMAP_COMPANION_ICON_SET = "Companion Icon set",
 
   QUESTMAP_MENU_PIN_SIZE = "Размер метки на карте",
   QUESTMAP_MENU_PIN_SIZE_TT = "Определяет размер отображаемых на карте меток (по умолчанию: " .. QuestMap.settings_default.pinSize .. ")",

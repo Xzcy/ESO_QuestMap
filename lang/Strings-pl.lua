@@ -16,6 +16,7 @@ local strings = {
   QUESTMAP_DAILY = "Dzienne",
   QUESTMAP_SKILL = "Punkt umiejętności",
   QUESTMAP_CADWELL = "Cadwell",
+  QUESTMAP_COMPANION = "Companion",
   QUESTMAP_DUNGEON = "Dungeon",
   QUESTMAP_HOLIDAY = "Holiday",
   QUESTMAP_WEEKLY = "Weekly",
@@ -44,6 +45,7 @@ local strings = {
   QUESTMAP_STORY_ICON_SET = "Story Icon set",
   QUESTMAP_SKILLPOINT_ICON_SET = "Skill Point Icon set",
   QUESTMAP_CADWELL_ICON_SET = "Cadwell Icon set",
+  QUESTMAP_COMPANION_ICON_SET = "Companion Icon set",
 
   QUESTMAP_MENU_PIN_SIZE = "Wielkość znacznika na mapie",
   QUESTMAP_MENU_PIN_SIZE_TT = "Określa wielkość znaczników na mapie (domyślnie: " .. QuestMap.settings_default.pinSize .. ")",

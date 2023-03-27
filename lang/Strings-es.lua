@@ -16,6 +16,7 @@ local strings = {
   QUESTMAP_DAILY = "Diarias",
   QUESTMAP_SKILL = "Da punto de habilidad",
   QUESTMAP_CADWELL = "De Cadwell",
+  QUESTMAP_COMPANION = "Companion",
   QUESTMAP_DUNGEON = "Mazmorra",
   QUESTMAP_HOLIDAY = "Festividades",
   QUESTMAP_WEEKLY = "Semanal",
@@ -44,6 +45,7 @@ local strings = {
   QUESTMAP_STORY_ICON_SET = "Story Icon set",
   QUESTMAP_SKILLPOINT_ICON_SET = "Skill Point Icon set",
   QUESTMAP_CADWELL_ICON_SET = "Cadwell Icon set",
+  QUESTMAP_COMPANION_ICON_SET = "Companion Icon set",
 
   QUESTMAP_MENU_PIN_SIZE = "Tamaño del marcador",
   QUESTMAP_MENU_PIN_SIZE_TT = "Define el tamaño del marcador en el mapa. (Por defecto: " .. QuestMap.settings_default.pinSize .. ")",

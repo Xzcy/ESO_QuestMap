@@ -16,6 +16,7 @@ local strings = {
   QUESTMAP_DAILY = "日常",
   QUESTMAP_SKILL = "技能点",
   QUESTMAP_CADWELL = "卡德威尔",
+  QUESTMAP_COMPANION = "Companion",
   QUESTMAP_DUNGEON = "副本",
   QUESTMAP_HOLIDAY = "节日",
   QUESTMAP_WEEKLY = "周常",
@@ -44,6 +45,7 @@ local strings = {
   QUESTMAP_STORY_ICON_SET = "Story Icon set",
   QUESTMAP_SKILLPOINT_ICON_SET = "Skill Point Icon set",
   QUESTMAP_CADWELL_ICON_SET = "Cadwell Icon set",
+  QUESTMAP_COMPANION_ICON_SET = "Companion Icon set",
 
   QUESTMAP_MENU_PIN_SIZE = "地图标点大小",
   QUESTMAP_MENU_PIN_SIZE_TT = "决定地图上的标记点大小 (默认：" .. QuestMap.settings_default.pinSize .. ")",
