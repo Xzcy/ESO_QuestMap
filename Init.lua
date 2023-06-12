@@ -332,7 +332,7 @@ QuestMap.settings_default = {
   ["cadwellIconSet"] = "Cadwell",
   ["companionIconSet"] = "Companion",
   ["pinSize"] = 25,
-  ["pinLevel"] = 40,
+  ["pinLevel"] = 120,
   ["hiddenQuests"] = {},
   ["pinFilters"] = {
     [QuestMap.PIN_TYPE_QUEST_UNCOMPLETED] = true,
@@ -367,7 +367,7 @@ QuestMap.settings_default = {
     [QuestMap.PIN_TYPE_QUEST_PLEDGES_PVP] = false,
   },
   ["displayClickMsg"] = true,
-  ["displayHideQuest"] = true,
+  ["displayHideQuest"] = false,
   ["displaySuffix"] = false,
   ["displayQuestList"] = true,
   ["lastListArg"] = "uncompleted",
