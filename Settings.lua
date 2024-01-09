@@ -40,7 +40,7 @@ local panelData = {
   name = QuestMap.displayName,
   displayName = "|c70C0DE" .. QuestMap.displayName .. "|r",
   author = "|c70C0DECaptainBlagbird|r, |cff9b15Sharlikran|r",
-  version = "3.16",
+  version = "3.17",
   slashCommand = "/questmap", --(optional) will register a keybind to open to this panel
   registerForRefresh = true, --boolean (optional) (will refresh all options controls when a setting is changed and when the panel is shown)
   registerForDefaults = true, --boolean (optional) (will set all options controls back to default values)
@@ -213,30 +213,6 @@ optionsTable[#optionsTable + 1] = {
   name = GetString(QUESTMAP_PIN_COLOR_HEADER),
   width = "full",
 }
--- Uncompleted pins
-optionsTable[#optionsTable + 1] = {
-  type = "colorpicker",
-  name = GetString(QUESTMAP_UNCOMPLETED_PIN_COLOR),
-  tooltip = GetString(QUESTMAP_UNCOMPLETED_PIN_COLOR_DESC),
-  getFunc = function() return unpack(QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]) end,
-  setFunc = function(r, g, b, a)
-    QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED] = QuestMap.create_color_table(r, g, b, a)
-    QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]:SetRGBA(unpack(QuestMap.settings["pin_colors"][QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]))
-    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED)
-  end,
-  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]),
-}
-optionsTable[#optionsTable + 1] = {
-  type = "colorpicker",
-  name = GetString(QUESTMAP_UNCOMPLETED_TOOLTIP_COLOR),
-  tooltip = GetString(QUESTMAP_UNCOMPLETED_TOOLTIP_COLOR_DESC),
-  getFunc = function() return unpack(QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]) end,
-  setFunc = function(r, g, b, a)
-    QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED] = QuestMap.create_color_table(r, g, b, a)
-    QuestMap:RefreshPinLayout()
-  end,
-  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]),
-}
 -- Completed pins
 optionsTable[#optionsTable + 1] = {
   type = "colorpicker",
@@ -260,6 +236,30 @@ optionsTable[#optionsTable + 1] = {
     QuestMap:RefreshPinLayout()
   end,
   default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_COMPLETED]),
+}
+-- Uncompleted pins
+optionsTable[#optionsTable + 1] = {
+  type = "colorpicker",
+  name = GetString(QUESTMAP_UNCOMPLETED_PIN_COLOR),
+  tooltip = GetString(QUESTMAP_UNCOMPLETED_PIN_COLOR_DESC),
+  getFunc = function() return unpack(QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]) end,
+  setFunc = function(r, g, b, a)
+    QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED] = QuestMap.create_color_table(r, g, b, a)
+    QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]:SetRGBA(unpack(QuestMap.settings["pin_colors"][QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]))
+    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_UNCOMPLETED)
+  end,
+  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]),
+}
+optionsTable[#optionsTable + 1] = {
+  type = "colorpicker",
+  name = GetString(QUESTMAP_UNCOMPLETED_TOOLTIP_COLOR),
+  tooltip = GetString(QUESTMAP_UNCOMPLETED_TOOLTIP_COLOR_DESC),
+  getFunc = function() return unpack(QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]) end,
+  setFunc = function(r, g, b, a)
+    QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED] = QuestMap.create_color_table(r, g, b, a)
+    QuestMap:RefreshPinLayout()
+  end,
+  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_UNCOMPLETED]),
 }
 -- Hidden pins
 optionsTable[#optionsTable + 1] = {
@@ -405,7 +405,30 @@ optionsTable[#optionsTable + 1] = {
   end,
   default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_CADWELL]),
 }
-----
+-- Dungeon pins
+optionsTable[#optionsTable + 1] = {
+  type = "colorpicker",
+  name = GetString(QUESTMAP_DUNGEON_PIN_COLOR),
+  tooltip = GetString(QUESTMAP_DUNGEON_PIN_COLOR_DESC),
+  getFunc = function() return unpack(QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]) end,
+  setFunc = function(r, g, b, a)
+    QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON] = QuestMap.create_color_table(r, g, b, a)
+    QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_DUNGEON]:SetRGBA(unpack(QuestMap.settings["pin_colors"][QuestMap.PIN_TYPE_QUEST_DUNGEON]))
+    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_DUNGEON)
+  end,
+  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]),
+}
+optionsTable[#optionsTable + 1] = {
+  type = "colorpicker",
+  name = GetString(QUESTMAP_DUNGEON_TOOLTIP_COLOR),
+  tooltip = GetString(QUESTMAP_DUNGEON_TOOLTIP_COLOR_DESC),
+  getFunc = function() return unpack(QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]) end,
+  setFunc = function(r, g, b, a)
+    QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON] = QuestMap.create_color_table(r, g, b, a)
+    QuestMap:RefreshPinLayout()
+  end,
+  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]),
+}
 -- Holiday pins
 optionsTable[#optionsTable + 1] = {
   type = "colorpicker",
@@ -430,53 +453,29 @@ optionsTable[#optionsTable + 1] = {
   end,
   default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_HOLIDAY]),
 }
--- PIN_TYPE_QUEST_WEEKLY Repeatable Duration pins
+-- Trial Pins
 optionsTable[#optionsTable + 1] = {
   type = "colorpicker",
-  name = GetString(QUESTMAP_WEEKLY_PIN_COLOR),
-  tooltip = GetString(QUESTMAP_WEEKLY_PIN_COLOR_DESC),
-  getFunc = function() return unpack(QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_WEEKLY]) end,
+  name = GetString(QUESTMAP_TRIAL_PIN_COLOR),
+  tooltip = GetString(QUESTMAP_TRIAL_PIN_COLOR_DESC),
+  getFunc = function() return unpack(QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_TRIAL]) end,
   setFunc = function(r, g, b, a)
-    QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_WEEKLY] = QuestMap.create_color_table(r, g, b, a)
-    QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_WEEKLY]:SetRGBA(unpack(QuestMap.settings["pin_colors"][QuestMap.PIN_TYPE_QUEST_WEEKLY]))
-    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_WEEKLY)
+    QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_TRIAL] = QuestMap.create_color_table(r, g, b, a)
+    QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_TRIAL]:SetRGBA(unpack(QuestMap.settings["pin_colors"][QuestMap.PIN_TYPE_QUEST_TRIAL]))
+    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_TRIAL)
   end,
-  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_colors[QuestMap.PIN_TYPE_QUEST_WEEKLY]),
+  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_colors[QuestMap.PIN_TYPE_QUEST_TRIAL]),
 }
 optionsTable[#optionsTable + 1] = {
   type = "colorpicker",
-  name = GetString(QUESTMAP_WEEKLY_TOOLTIP_COLOR),
-  tooltip = GetString(QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC),
-  getFunc = function() return unpack(QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_WEEKLY]) end,
+  name = GetString(QUESTMAP_TRIAL_TOOLTIP_COLOR),
+  tooltip = GetString(QUESTMAP_TRIAL_TOOLTIP_COLOR_DESC),
+  getFunc = function() return unpack(QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_TRIAL]) end,
   setFunc = function(r, g, b, a)
-    QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_WEEKLY] = QuestMap.create_color_table(r, g, b, a)
+    QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_TRIAL] = QuestMap.create_color_table(r, g, b, a)
     QuestMap:RefreshPinLayout()
   end,
-  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_WEEKLY]),
-}
--- Dungeon pins
-optionsTable[#optionsTable + 1] = {
-  type = "colorpicker",
-  name = GetString(QUESTMAP_DUNGEON_PIN_COLOR),
-  tooltip = GetString(QUESTMAP_DUNGEON_PIN_COLOR_DESC),
-  getFunc = function() return unpack(QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]) end,
-  setFunc = function(r, g, b, a)
-    QuestMap.settings.pin_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON] = QuestMap.create_color_table(r, g, b, a)
-    QuestMap.pin_color[QuestMap.PIN_TYPE_QUEST_DUNGEON]:SetRGBA(unpack(QuestMap.settings["pin_colors"][QuestMap.PIN_TYPE_QUEST_DUNGEON]))
-    LMP:RefreshPins(QuestMap.PIN_TYPE_QUEST_DUNGEON)
-  end,
-  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]),
-}
-optionsTable[#optionsTable + 1] = {
-  type = "colorpicker",
-  name = GetString(QUESTMAP_DUNGEON_TOOLTIP_COLOR),
-  tooltip = GetString(QUESTMAP_DUNGEON_TOOLTIP_COLOR_DESC),
-  getFunc = function() return unpack(QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]) end,
-  setFunc = function(r, g, b, a)
-    QuestMap.settings.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON] = QuestMap.create_color_table(r, g, b, a)
-    QuestMap:RefreshPinLayout()
-  end,
-  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_DUNGEON]),
+  default = QuestMap.create_color_table_rbga(QuestMap.settings_default.pin_tooltip_colors[QuestMap.PIN_TYPE_QUEST_TRIAL]),
 }
 -- Zone Story pins
 optionsTable[#optionsTable + 1] = {

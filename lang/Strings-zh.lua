@@ -19,7 +19,7 @@ local strings = {
   QUESTMAP_COMPANION = "Companion",
   QUESTMAP_DUNGEON = "副本",
   QUESTMAP_HOLIDAY = "节日",
-  QUESTMAP_WEEKLY = "周常",
+  QUESTMAP_TRIAL = "Trial",
   QUESTMAP_ZONESTORY = "地区主线",
   QUESTMAP_PROLOGUE = "序章",
   QUESTMAP_PLEDGES = "契约",
@@ -119,11 +119,11 @@ local strings = {
   QUESTMAP_DAILY_TOOLTIP_COLOR_DESC = "更改日常任务提示颜色",
 
   -- Weekly Duration quest pin text
-  QUESTMAP_WEEKLY_PIN_COLOR = "周常任务标记颜色",
-  QUESTMAP_WEEKLY_PIN_COLOR_DESC = "更改周常任务标记颜色",
+  QUESTMAP_TRIAL_PIN_COLOR = "周常任务标记颜色",
+  QUESTMAP_TRIAL_PIN_COLOR_DESC = "更改周常任务标记颜色",
 
-  QUESTMAP_WEEKLY_TOOLTIP_COLOR = "周常任务提示颜色",
-  QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC = "更改周常任务提示颜色",
+  QUESTMAP_TRIAL_TOOLTIP_COLOR = "周常任务提示颜色",
+  QUESTMAP_TRIAL_TOOLTIP_COLOR_DESC = "更改周常任务提示颜色",
 
   -- Holiday quest pin text
   QUESTMAP_HOLIDAY_PIN_COLOR = "节日任务标记颜色",

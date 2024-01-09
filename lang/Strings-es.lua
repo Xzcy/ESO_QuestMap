@@ -19,7 +19,7 @@ local strings = {
   QUESTMAP_COMPANION = "Companion",
   QUESTMAP_DUNGEON = "Mazmorra",
   QUESTMAP_HOLIDAY = "Festividades",
-  QUESTMAP_WEEKLY = "Semanal",
+  QUESTMAP_TRIAL = "Trial",
   QUESTMAP_ZONESTORY = "Historia de zona",
   QUESTMAP_PROLOGUE = "Prologue",
   QUESTMAP_PLEDGES = "Pledges",
@@ -119,11 +119,11 @@ local strings = {
   QUESTMAP_DAILY_TOOLTIP_COLOR_DESC = "Cambia el color del texto en las ventanas de información de misiones diarias.",
 
   -- Weekly Duration quest pin text
-  QUESTMAP_WEEKLY_PIN_COLOR = "Color de marcador de misiones semanales",
-  QUESTMAP_WEEKLY_PIN_COLOR_DESC = "Cambia el color de los marcadores de misiones semanales.",
+  QUESTMAP_TRIAL_PIN_COLOR = "Color de marcador de misiones semanales",
+  QUESTMAP_TRIAL_PIN_COLOR_DESC = "Cambia el color de los marcadores de misiones semanales.",
 
-  QUESTMAP_WEEKLY_TOOLTIP_COLOR = "Color del texto de inf. de misiones semanales",
-  QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC = "Cambia el color del texto en las ventanas de información de misiones semanales.",
+  QUESTMAP_TRIAL_TOOLTIP_COLOR = "Color del texto de inf. de misiones semanales",
+  QUESTMAP_TRIAL_TOOLTIP_COLOR_DESC = "Cambia el color del texto en las ventanas de información de misiones semanales.",
 
   -- Holiday quest pin text
   QUESTMAP_HOLIDAY_PIN_COLOR = "Color de marcador de misiones de evento",

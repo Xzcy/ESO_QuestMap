@@ -19,7 +19,7 @@ local strings = {
   QUESTMAP_COMPANION = "Companion",
     QUESTMAP_DUNGEON              = "Dungeon",
     QUESTMAP_HOLIDAY              = "Holiday",
-    QUESTMAP_WEEKLY               = "Weekly",
+    QUESTMAP_TRIAL               = "Trial",
     QUESTMAP_ZONESTORY            = "Zone Story",
     QUESTMAP_PROLOGUE             = "Prologue",
     QUESTMAP_PLEDGES              = "Pledges",
@@ -119,11 +119,11 @@ local strings = {
     QUESTMAP_DAILY_TOOLTIP_COLOR_DESC  = "Change Daily Quest Tooltip Color",
 
     -- Weekly Duration quest pin text
-    QUESTMAP_WEEKLY_PIN_COLOR  = "Weekly Quest Pin Color",
-    QUESTMAP_WEEKLY_PIN_COLOR_DESC  = "Change Weekly Quest Pin Color",
+    QUESTMAP_TRIAL_PIN_COLOR  = "Weekly Quest Pin Color",
+    QUESTMAP_TRIAL_PIN_COLOR_DESC  = "Change Weekly Quest Pin Color",
 
-    QUESTMAP_WEEKLY_TOOLTIP_COLOR  = "Weekly Quest Tooltip Color",
-    QUESTMAP_WEEKLY_TOOLTIP_COLOR_DESC  = "Change Weekly Quest Tooltip Color",
+    QUESTMAP_TRIAL_TOOLTIP_COLOR  = "Weekly Quest Tooltip Color",
+    QUESTMAP_TRIAL_TOOLTIP_COLOR_DESC  = "Change Weekly Quest Tooltip Color",
 
     -- Holiday quest pin text
     QUESTMAP_HOLIDAY_PIN_COLOR  = "Holiday Quest Pin Color",
