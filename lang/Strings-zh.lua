@@ -16,10 +16,10 @@ local strings = {
   QUESTMAP_DAILY = "日常",
   QUESTMAP_SKILL = "技能点",
   QUESTMAP_CADWELL = "卡德威尔",
-  QUESTMAP_COMPANION = "Companion",
+  QUESTMAP_COMPANION = "伙伴",
   QUESTMAP_DUNGEON = "副本",
   QUESTMAP_HOLIDAY = "节日",
-  QUESTMAP_TRIAL = "Trial",
+  QUESTMAP_TRIAL = "试炼",
   QUESTMAP_ZONESTORY = "地区主线",
   QUESTMAP_PROLOGUE = "序章",
   QUESTMAP_PLEDGES = "契约",
@@ -42,10 +42,10 @@ local strings = {
 
   -- Settings menu
   QUESTMAP_NORMAL_ICON_SET = "图标设定",
-  QUESTMAP_STORY_ICON_SET = "Story Icon set",
-  QUESTMAP_SKILLPOINT_ICON_SET = "Skill Point Icon set",
-  QUESTMAP_CADWELL_ICON_SET = "Cadwell Icon set",
-  QUESTMAP_COMPANION_ICON_SET = "Companion Icon set",
+  QUESTMAP_STORY_ICON_SET = "主线图标设定",
+  QUESTMAP_SKILLPOINT_ICON_SET = "技能点图标设定",
+  QUESTMAP_CADWELL_ICON_SET = "卡德维尔图标设定",
+  QUESTMAP_COMPANION_ICON_SET = "伙伴图标设定",
 
   QUESTMAP_MENU_PIN_SIZE = "地图标点大小",
   QUESTMAP_MENU_PIN_SIZE_TT = "决定地图上的标记点大小 (默认：" .. QuestMap.settings_default.pinSize .. ")",
@@ -174,10 +174,10 @@ local strings = {
   QUESTMAP_PLEDGES_TOOLTIP_COLOR = "契约任务提示颜色",
   QUESTMAP_PLEDGES_TOOLTIP_COLOR_DESC = "更改契约任务提示颜色",
 
-  QUESTMAP_ICON_SETS_HEADER = "Quest Icon Sets",
-  QUESTMAP_SETTINGS_HEADER = "Map Pin Settings",
-  QUESTMAP_PIN_COLOR_HEADER = "Map Pin Color Settings",
-  QUESTMAP_RESET_HIDDEN_HEADER = "Reset Hidden Map Pins",
+  QUESTMAP_ICON_SETS_HEADER = "任务图标设定",
+  QUESTMAP_SETTINGS_HEADER = "地图图标设定",
+  QUESTMAP_PIN_COLOR_HEADER = "地图图标颜色设定",
+  QUESTMAP_RESET_HIDDEN_HEADER = "重置隐藏的地图图标",
 }
 
 for key, value in pairs(strings) do
